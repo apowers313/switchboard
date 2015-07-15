@@ -1,0 +1,79 @@
+<link rel="import" href="/bower_components/polymer/polymer.html">
+<!-- <link rel="import" href="/bower_components/paper-toolbar/paper-toolbar.html"> -->
+<link rel="import" href="/bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="/bower_components/paper-icon-button/paper-icon-button.html">
+<!-- <link rel="import" href="/bower_components/paper-styles/color.html"> -->
+<link rel="import" href="/bower_components/paper-styles/paper-styles.html">
+<link rel="import" href="/bower_components/paper-header-panel/paper-header-panel.html">
+<link rel="import" href="/bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="/bower_components/paper-toolbar/paper-toolbar.html">
+<link rel="import" href="/components/sb-theme.html">
+<dom-module id="sb-header">
+    <style is="custom-style">
+    a:link {
+        text-decoration: none;
+        color: black;
+    }
+    
+    a:visited {
+        text-decoration: none;
+        color: black;
+    }
+    
+    a:hover {
+        text-decoration: none;
+        color: black;
+    }
+    
+    a:active {
+        text-decoration: none;
+        color: black;
+    }
+    
+    body {
+        font-family: 'Roboto', 'Noto', sans-serif;
+        font-size: 14px;
+        margin: 0;
+        padding: 24px;
+        background-color: var(--paper-grey-50);
+    }
+    
+    paper-toolbar {
+        background: var(--sb-theme-bgcolor);
+    }
+    
+    .paper-header.medium-tall {
+        height: 100px;
+        line-height: 50px;
+    }
+    </style>
+    <template>
+        <paper-header-panel mode="seamed">
+            <paper-toolbar class="paper-header tall horizontal">
+                <div class="middle flex"></div>
+                <div class="middle justified layout">
+                    <a href="/"><img src="/images/switchboard_logo1.png" height="50" alt="Switchboard" class="center-justified"></a>
+                </div>
+                <div class="middle flex"></div>
+                <paper-icon-button class="bottom" icon="menu"></paper-icon-button>
+                <div class="bottom flex"></div>
+                <div class="bottom"><a href="/login.html">sign in</a> or <a href="/register.html">register</a></div>
+            </paper-toolbar>
+            <!-- <span class="flex"></span>
+        <div>sign in or register</div> -->
+            </paper-toolbar>
+            <div class="content">
+                <content>
+                </content>
+            </div>
+        </paper-header-panel>
+    </template>
+    <script>
+    Polymer({
+        is: 'sb-header',
+        goHome: function() {
+            console.log("HOME");
+        }
+    });
+    </script>
+</dom-module>

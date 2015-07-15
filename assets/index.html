@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+    <title>Switchboard</title>
+    <script src="/bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+    <!-- <link rel="import" href="/bower_components/iron-flex-layout/iron-flex-layout.html"> -->
+    <link rel="import" href="/components/sb-header.html">
+    <!-- <link rel="import" href="/components/sb-theme.html"> -->
+    <link rel="import" href="/components/page-tile.html">
+    <!-- <link rel="stylesheet" href="/components/sb-theme.html"> -->
+    <style>
+    a:link {
+        text-decoration: none;
+        color: black;
+    }
+    
+    a:visited {
+        text-decoration: none;
+        color: black;
+    }
+    
+    a:hover {
+        text-decoration: none;
+        color: black;
+    }
+    
+    a:active {
+        text-decoration: none;
+        color: black;
+    }
+    
+    body {
+        font-family: 'Roboto', 'Noto', sans-serif;
+        font-size: 14px;
+    }
+    </style>
+</head>
+
+<body unresolved class="fullbleed">
+    <sb-header>
+        <template is="dom-bind">
+            <div class="flex layout horizontal wrap">
+                <page-tile name="Browse" url="/service-list.html" color="color1">Test</page-tile>
+                <page-tile name="Use" url="/docs/use.html" color="color2">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</page-tile>
+                <page-tile name="Create" url="/upload.html" color="color3">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</page-tile>
+                <page-tile name="About" url="/docs/about.html" color="color4">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. </page-tile>
+            </div>
+        </template>
+    </sb-header>
+</body>
+
+</html>
