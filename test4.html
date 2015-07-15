@@ -1,0 +1,120 @@
+<!doctype html>
+<!--
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<html>
+
+<head>
+    <title>iron-ajax</title>
+    <script src="/bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+    <link rel="import" href="/bower_components/iron-icon/iron-icon.html">
+    <link rel="import" href="/bower_components/iron-icons/iron-icons.html">
+    <link rel="import" href="/bower_components/iron-icons/communication-icons.html">
+    <link rel="import" href="/bower_components/paper-checkbox/paper-checkbox.html">
+    <link rel="import" href="/bower_components/paper-toggle-button/paper-toggle-button.html">
+    <link rel="import" href="/bower_components/paper-item/paper-icon-item.html">
+    <link rel="import" href="/bower_components/paper-item/paper-item.html">
+    <link rel="import" href="/bower_components/paper-item/paper-item-body.html">
+    <link rel="import" href="/bower_components/paper-styles/paper-styles.html">
+    <link rel="import" href="/bower_components/paper-styles/demo-pages.html">
+    <link rel="import" href="/bower_components/paper-material/paper-material.html">
+    <link rel="import" href="/bower_components/paper-styles/color.html">
+    <link rel="import" href="/bower_components/paper-ripple/paper-ripple.html">
+    <link rel="stylesheet" href="/components/page-tile.html">
+    <!--   <link rel="import" href="/bower_components/iron-image/iron-image.html">
+  <link rel="import" href="/bower_components/paper-styles/classes/typography.html">
+ -->
+    <!-- <link rel="import" href="/bower_components/iron-flex-layout/classes/iron-flex-layout.html"> -->
+    <!-- <link rel="stylesheet" href="/bower_components/paper-styles/demo.css"> -->
+</head>
+<style is="custom-style">
+/*  .list {
+    padding-top: 12px;
+    background-color: white;
+    display: inline-block;
+    width: 240px;
+    height: 228px;
+    margin: 12px;
+    @apply(--shadow-elevation-2dp);
+  }
+  .avatar {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    background: #ccc;
+  }*/
+
+.blue {
+    background-color: var(--paper-light-blue-300);
+}
+
+.red {
+    background-color: var(--paper-red-300);
+}
+
+.orange {
+    background-color: var(--paper-amber-300);
+}
+
+.green {
+    background-color: var(--paper-green-300);
+}
+
+.box {
+    width: 250px;
+    height: 250px;
+    margin: 15px;
+    padding: 10px;
+}
+
+.title {
+    font-size: 150%;
+    font-weight: bold;
+}
+</style>
+<!--  
+<script>
+var foo = "poop";
+var elev = 5;
+document.addEventListener('WebComponentsReady', function() {});
+
+function testEvent(event) {
+    this.$.elevation = 3;
+}
+</script>
+-->
+<body unresolved>
+    <template is="dom-bind">
+    <!-- <template> -->
+        <!-- <iron-ajax auto url="http://localhost:1337/service" handle-as="json" last-response="{{ajaxResponse}}"></iron-ajax> -->
+        <!-- <h1>Services</h1> -->
+        <div class="flex layout horizontal wrap">
+        <page-tile>test</page-tile>
+<!--             <paper-material elevation=[[elev]] class="box blue" on-mouseenter="testEvent(event)">
+                <paper-ripple fit></paper-ripple>
+                <div class="title">Browse</div>
+                <br>
+                <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
+            </paper-material>
+            <paper-material elevation=1 class="box orange">
+                <div>This is a test</div>
+            </paper-material>
+            <paper-material elevation=1 class="box red">
+                <div>This is a test</div>
+            </paper-material>
+            <paper-material elevation=1 class="box green">
+                <div>This is a test</div>
+            </paper-material> -->
+        </div>
+        <!-- </section> -->
+    </template>
+</body>
+
+</html>

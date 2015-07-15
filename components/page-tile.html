@@ -1,0 +1,92 @@
+<link rel="import" href="/bower_components/polymer/polymer.html">
+<link rel="import" href="/bower_components/paper-material/paper-material.html">
+<link rel="import" href="/bower_components/paper-styles/color.html">
+<link rel="import" href="/bower_components/paper-ripple/paper-ripple.html">
+<link rel="import" href="/bower_components/paper-styles/paper-styles.html">
+<link rel="import" href="/bower_components/paper-styles/typography.html">
+
+<link rel="stylesheet" href="/components/page-tile.html">
+<link rel="stylesheet" href="/components/sb-theme.html">
+<dom-module id="page-tile">
+    <style is="custom-style">
+    /* TODO: not sure if this is the right way to style links for an element*/
+
+    .color1 {
+        background-color: var(--sb-theme-color1);
+    }
+    
+    .color2 {
+        background-color: var(--sb-theme-color2);
+    }
+    
+    .color3 {
+        background-color: var(--sb-theme-color3);
+    }
+    
+    .color4 {
+        background-color: var(--sb-theme-color4);
+        color: white;
+    }
+
+    .box {
+        width: 250px;
+        height: 250px;
+        margin: 15px;
+        padding: 10px;
+    }
+    
+    .title {
+        font-size: 150%;
+        font-weight: bold;
+    }
+    </style>
+    <template>
+        <a href="[[url]]">
+            <paper-material elevation=[[elev]] class$="{{paperClass}}" on-mouseenter="elevate" on-mouseleave="descend" animated>
+                <paper-ripple fit></paper-ripple>
+                <div class="title">[[name]]</div>
+                <br>
+                <content></content>
+            </paper-material>
+        </a>
+    </template>
+    <script>
+    Polymer({
+        is: 'page-tile',
+        properties: {
+            elev: {
+                type: Number,
+                value: 1
+            },
+            paperClass: {
+            	type: String,
+            	value: "box"
+            },
+            name : {
+            	type: String
+            },
+            url: {
+            	type: String
+            },
+            color: {
+            	type: String,
+                value: "color1"
+            }
+        },
+        ready: function() {
+        	this.paperClass = this.paperClass + " " + this.color;
+        },
+        hostAttributes: {
+            name: 'NO NAME',
+            url: '/',
+            color: 'color1'
+        },
+        elevate: function() {
+            this.elev = 3;
+        },
+        descend: function() {
+            this.elev = 1;
+        }
+    });
+    </script>
+</dom-module>
