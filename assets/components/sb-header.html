@@ -8,6 +8,7 @@
 <link rel="import" href="/bower_components/iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="/bower_components/paper-toolbar/paper-toolbar.html">
 <link rel="import" href="/components/sb-theme.html">
+<link rel="import" href="/virtual-components/sign-in.html">
 <dom-module id="sb-header">
     <style is="custom-style">
     a:link {
@@ -57,7 +58,7 @@
                 <div class="middle flex"></div>
                 <paper-icon-button class="bottom" icon="menu"></paper-icon-button>
                 <div class="bottom flex"></div>
-                <div class="bottom"><a href="/login.html">sign in</a> or <a href="/register.html">register</a></div>
+                <sign-in class="bottom"></sign-in>
             </paper-toolbar>
             <!-- <span class="flex"></span>
         <div>sign in or register</div> -->
