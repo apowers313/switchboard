@@ -1,26 +1,29 @@
-<link rel="import" href="/bower_components/paper-icon/paper-icon.html">
+<link rel="import" href="/bower_components/paper-item/paper-icon-item.html">
 <link rel="import" href="/bower_components/paper-material/paper-material.html">
-<link rel="import" href="/bower_components/paper-item-body/paper-item-body.html">
+<link rel="import" href="/bower_components/paper-item/paper-item-body.html">
 <link rel="import" href="/bower_components/iron-ajax/iron-ajax.html">
-
-
+<link rel="import" href="/bower_components/iron-list/iron-list.html">
 <dom-module id="service-list">
     <style>
     </style>
     <template>
-    	<iron-ajax auto url="http://localhost:1337/service" handle-as="json" last-response="{{serviceList}}"></iron-ajax>
-        <template is="dom-repeat" items="{{serviceList}}">
-            <paper-material elevation=3 class="list">
-                <paper-icon-item>
-                    <div class="avatar orange" item-icon></div>
-                    <paper-item-body two-line>
-                        <div>{{item.name}}</div>
-                        <div secondary>Testing 1 2 3</div>
-                    </paper-item-body>
-                    <iron-icon icon="star"></iron-icon>
-                </paper-icon-item>
-            </paper-material>
-        </template>
+        <iron-ajax auto url="http://localhost:5000/user" handle-as="json" last-response="{{serviceList}}"></iron-ajax>
+        <!-- <iron-list items="[[data]]" as="item"> -->
+            <!-- <template> -->
+            <template is="dom-repeat" items="{{serviceList}}">
+            <!-- <div>{{item.name}}</div> -->
+                <paper-material elevation=3 class="list">
+                    <paper-icon-item>
+                        <div class="avatar orange" item-icon></div>
+                        <paper-item-body two-line>
+                            <div>{{item.name}}</div>
+                            <div secondary>Testing 1 2 3</div>
+                        </paper-item-body>
+                        <iron-icon icon="star"></iron-icon>
+                    </paper-icon-item>
+                </paper-material>
+            </template>
+        <!-- </iron-list> -->
     </template>
     <script>
     Polymer({
