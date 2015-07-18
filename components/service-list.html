@@ -1,28 +1,17 @@
-<link rel="import" href="/bower_components/paper-item/paper-icon-item.html">
-<link rel="import" href="/bower_components/paper-material/paper-material.html">
-<link rel="import" href="/bower_components/paper-item/paper-item-body.html">
 <link rel="import" href="/bower_components/iron-ajax/iron-ajax.html">
-<link rel="import" href="/bower_components/iron-list/iron-list.html">
+<link rel="import" href="/components/list-item.html">
 <dom-module id="service-list">
     <style>
     </style>
     <template>
-        <iron-ajax auto url="http://localhost:5000/user" handle-as="json" last-response="{{serviceList}}"></iron-ajax>
+        <iron-ajax auto url="http://localhost:5000/service" handle-as="json" last-response="{{serviceList}}"></iron-ajax>
         <!-- <iron-list items="[[data]]" as="item"> -->
-            <!-- <template> -->
-            <template is="dom-repeat" items="{{serviceList}}">
+        <!-- <template> -->
+        <template is="dom-repeat" items="{{serviceList}}">
             <!-- <div>{{item.name}}</div> -->
-                <paper-material elevation=3 class="list">
-                    <paper-icon-item>
-                        <div class="avatar orange" item-icon></div>
-                        <paper-item-body two-line>
-                            <div>{{item.name}}</div>
-                            <div secondary>Testing 1 2 3</div>
-                        </paper-item-body>
-                        <iron-icon icon="star"></iron-icon>
-                    </paper-icon-item>
-                </paper-material>
-            </template>
+            <list-item name="{{item.name}}" desc="{{item.description}}"></list-item>
+            <!-- <div>Testing: <div>{{item.name}}</div> -- <div>{{item.desc}}</div></div><hr/> -->
+        </template>
         <!-- </iron-list> -->
     </template>
     <script>
@@ -32,16 +21,20 @@
             serviceList: {
                 type: Array,
                 value: [{
-                    name: "Zotero"
+                    name: "Zotero",
+                    desc: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
                 }, {
-                    name: "Amazon"
+                    name: "Amazon",
+                    desc: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
                 }, {
-                    name: "eBay"
+                    name: "eBay",
+                    desc: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
                 }, {
-                    name: "Microsoft Office"
+                    name: "Microsoft Office",
+                    desc: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
                 }]
             }
-        }
+        },
     });
     </script>
 </dom-module>
