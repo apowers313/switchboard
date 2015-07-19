@@ -125,3 +125,5 @@ nbproject
 #
 ################################################
 **/deleteme
+api/services/parser/postDoc.js
+assets/docs/*.html
