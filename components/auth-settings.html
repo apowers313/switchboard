@@ -1,0 +1,137 @@
+<script>
+var authMethods = [
+    // ***************************
+    // OAUTH2 VERIFICATION
+    // ***************************
+    {
+        name: "OAuth 2 (three-legged)",
+        selectName: "oauth2",
+        arguments: [{
+            name: "Authorization URL",
+            verificationMethod: this.verifyUrl
+        }, {
+            name: "Token URL",
+            verificationMethod: this.verifyUrl
+        }, {
+            name: "Client ID",
+            verificationMethod: this.verifyNonEmpty
+        }, {
+            name: "Client Secret",
+            verificationMethod: this.verifyNonEmpty
+        }, {
+            name: "Scope"
+        }, {
+            name: "Developer Sign-up URL",
+            verificationMethod: this.verifyUrl,
+            help: "The URL where developers can sign-up for Client ID, Client Secret, set Callback URLs, etc."
+        }]
+    },
+
+    // ***************************
+    // OAUTH 1.0A VERIFICATION
+    // ***************************
+    {
+        name: "OAuth 1.0A (three-legged)",
+        selectName: "oauth1a",
+        arguments: [{
+            name: "Token Request URL",
+            verificationMethod: this.verifyUrl
+        }, {
+            name: "Authorization URL",
+            verificationMethod: this.verifyURL
+        }, {
+            name: "Authorization Endpoint",
+            verificationMethod: this.verifyURL
+        }, {
+            name: "Client Key",
+            verificationMethod: this.verifyNonEmpty
+        }, {
+            name: "Client Secret",
+            verificationMethod: this.verifyNonEmpty
+        }, {
+            name: "Developer Sign-up URL",
+            verificationMethod: this.verifyUrl,
+            help: "The URL where developers can sign-up for Client ID, Client Secret, set Callback URLs, etc."
+        }]
+    }
+];
+
+function authChange2() {
+    console.log("Whee!");
+}
+</script>
+<link rel="import" href="/bower_components/polymer/polymer.html">
+<link rel="import" href="/bower_components/paper-input/paper-input.html">
+<dom-module id="auth-settings">
+    <style>
+
+    </style>
+    <template>
+        <select name="authType" id="authlist" on-change="authChange">
+            <template is="dom-repeat" items="{{authMethods}}">
+                <option value="{{item.selectName}}">{{item.name}}</option>
+            </template>
+        </select>
+        <div id="authfields"></div>
+    </template>
+    <script>
+    Polymer({
+        is: 'auth-settings',
+
+        ready: function() {
+            console.log("Ready");
+            for (key in this.authMethods) {
+                console.log("Auth Method:", key);
+            }
+            this.authMethods = authMethods;
+            this.authChange();
+        },
+
+        authChange: function() {
+            // console.log("Auth changed to", document.getElementById("authlist").selectedIndex);
+            var options = document.getElementById("authlist").getElementsByTagName("option");
+
+            // Find out which Auth type we are using so that we can add the right inputs
+            for (var i = 0; i < options.length; i++) {
+                if (options[i].selected === true) break;
+            }
+            console.log("Selected ", i);
+            var selectedAuth = this.authMethods[i];
+            var args = selectedAuth.arguments;
+            var insertPoint = this.$.authfields;
+            var nodes = Polymer.dom(insertPoint).childNodes;
+            console.log("Insert Point", insertPoint);
+            console.log(nodes.length + " children");
+
+            // for (var i = 0; i < nodes.length; i++) {
+            // 	console.log ("Removing [" + i + "]:",nodes[i])
+            // 	Polymer.dom(insertPoint).removeChild(nodes[i]);
+            // }
+            var child = Polymer.dom(insertPoint).firstChild;
+            var i = 0;
+            while (child) {
+            	console.log ("Removing:",i);
+            	i++;
+            	Polymer.dom(insertPoint).removeChild(child);
+            	child = Polymer.dom(insertPoint).firstChild;
+            }
+
+            // Add new <paper-input> nodes
+            for (var i = 0; i < args.length; i++) {
+                var toAdd = document.createElement("paper-input");
+                console.log ("Adding input [" + i + "]:", args[i].name);
+                toAdd.label = args[i].name;
+                Polymer.dom(insertPoint).appendChild(toAdd);
+            }
+        },
+
+        verifyUrl: function() {
+            console.log("Verify URL");
+        },
+
+        verifyNonEmpty: function() {
+            console.log("Verify Non Empty");
+        }
+    });
+    </script>
+</dom-module>
