@@ -5,17 +5,22 @@
     
     <title>Switchboard Documentation</title>
     <!-- <link rel="stylesheet" href="/js/monokai_sublime.css"> -->
+    <script src="/bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+    <link rel="import" href="/components/sb-header.html">
     <link rel="stylesheet" href="//cdn.jsdelivr.net/highlight.js/8.6/styles/default.min.css">
     <script src="//cdn.jsdelivr.net/highlight.js/8.6/highlight.min.js"></script>
+    <link rel="stylesheet" href="/js/monokai_sublime.css">
     <script>hljs.initHighlightingOnLoad();</script>
     <style>
     code {
-      max-width: 750px;
+      max-width: 1000px;
       overflow: scroll;
     }
     </style>
   </head>
   <body>  
+    <!-- <sb-header> -->
     <%=content%>
+    <!-- </sb-header> -->
   </body>
 </html>

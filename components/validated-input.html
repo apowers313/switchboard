@@ -1,0 +1,67 @@
+<link rel="import" href="/bower_components/polymer/polymer.html">
+<link rel="import" href="/bower_components/paper-input/paper-input.html">
+<link rel="import" href="/components/auth-validate.html">
+<dom-module id="validated-input">
+    <style>
+    .invalid {
+        color: var(--google-red-500);
+    }
+    </style>
+    <template>
+        <paper-input type$="[[type]]" id$="[[id]]" label$="[[name]]" on-blur="blurValidate"></paper-input>
+        <span class="invalid" hidden$="[[isValid]]">invalid</span>
+    </template>
+    <script>
+    Polymer({
+        is: 'validated-input',
+
+        properties: {
+            name: {
+                type: String,
+                value: "NONAME"
+            },
+            type: {
+                type: String,
+                value: "text"
+            },
+            id: {
+            	type: String,
+            	value: "NOID"
+            },
+            validate: {
+                type: String,
+            },
+            isValid: {
+                type: Boolean,
+                value: true
+            },
+        },
+        ready: function() {
+        	console.log ("Ready Name:", this.name);
+        	console.log ("Ready Validate:", this.validate);
+        },
+
+        verifyUrl: function(e) {
+            console.log("Verify URL", e);
+            console.log("Event on", e.srcElement.id)
+                // var prop = e.srcElement.id + "Valid";
+                // this.properties[prop] = false;
+            return false;
+        },
+
+        verifyNonEmpty: function(e) {
+            console.log("Verify Non Empty", e);
+        },
+
+        blurValidate: function(e) {
+            console.log("Doing blur validation:", this.validate);
+            if (this.validate !== undefined) {
+                console.log("Doing validation");
+                this.isValid = this[this.validate](e);
+            } else {
+                console.log("No validation");
+            }
+        }
+    });
+    </script>
+</dom-module>
