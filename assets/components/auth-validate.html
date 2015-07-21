@@ -2,25 +2,24 @@
 <link rel="import" href="/bower_components/iron-validator-behavior/iron-validator-behavior.html">
 <script>
 Polymer({
-    is: 'registration-validate',
+    is: 'auth-validate',
     behaviors: [
         Polymer.IronValidatorBehavior
     ],
-    validateUsername: function(values) {
-        return true;
-    },
-    validateEmail: function(values) {
+
+    validateNonEmpty: function(values) {
         var value = Array.isArray(values) ? values.join('') : values;
-        if (value.match(/.+@.+\..+/) !== null) {
+        if (value !== null && value !== "") {
+            console.log ("Confirmed non-empty");
             return true;
         }
 
         return false;
     },
-    validatePassword: function(values) {
+    validateUrl: function(values) {
         var value = Array.isArray(values) ? values.join('') : values;
-        // Password must be 8 to 255 characters, have a lower case, upper case and a digit
-        if (value.match(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).{8,255}/) !== null) {
+        if (value.match(/http[s]*:\/\/.+/) !== null) {
+            console.log ("Matched URL")
             return true;
         }
 
