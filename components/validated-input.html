@@ -8,8 +8,8 @@
     }
     </style>
     <template>
-        <paper-input type$="[[type]]" id$="[[id]]" label$="[[name]]" on-blur="blurValidate"></paper-input>
-        <span class="invalid" hidden$="[[isValid]]">invalid</span>
+        <paper-input type$="[[type]]" id$="[[id]]" label$="[[name]]" bind-value="{{value}}" on-blur="blurValidate"></paper-input>
+        <span class="invalid" hidden$="[[valid]]">invalid</span>
     </template>
     <script>
     Polymer({
@@ -20,25 +20,35 @@
                 type: String,
                 value: "NONAME"
             },
+            value: {
+                type: String,
+                notify: true,
+                observer: "testObserver"
+            },
             type: {
                 type: String,
                 value: "text"
             },
             id: {
-            	type: String,
-            	value: "NOID"
-            },
-            validate: {
                 type: String,
+                value: "NOID"
             },
-            isValid: {
+            validator: {
+                type: String,
+                value: "noValidator"
+            },
+            valid: {
                 type: Boolean,
                 value: true
             },
         },
+        testObserver: function() {
+            console.log ("Change observed!");
+        },
         ready: function() {
-        	console.log ("Ready Name:", this.name);
-        	console.log ("Ready Validate:", this.validate);
+            console.log("Ready Name:", this.name);
+            console.log("Ready Validate:", this.validate);
+            // console.log("Invalid",this.invalid);
         },
 
         verifyUrl: function(e) {
@@ -47,6 +57,9 @@
                 // var prop = e.srcElement.id + "Valid";
                 // this.properties[prop] = false;
             return false;
+        },
+        noValidator: function() {
+            console.log ("noValidator");
         },
 
         verifyNonEmpty: function(e) {

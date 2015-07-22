@@ -6,17 +6,10 @@
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
     <title>Login</title>
     <script src="/bower_components/webcomponentsjs/webcomponents-lite.js"></script>
-    <link rel="import" href="/bower_components/paper-input/paper-input.html">
-    <!-- <link rel="import" href="/bower_components/iron-validator-behavior/iron-validator-behavior.html"> -->
-    <!-- <link rel="import" href="/bower_components/paper-styles/color.html"> -->
-    <!-- <link rel="import" href="/bower_components/iron-form/iron-form.html"> -->
-    <link rel="import" href="/bower_components/paper-button/paper-button.html">
-    <!-- <link rel="import" href="/bower_components/paper-styles/demo-pages.html"> -->
-    <!-- <link rel="import" href="/bower_components/iron-meta/iron-meta.html"> -->
+    <link rel="import" href="/components/validated-input.html">
+    <link rel="import" href="/components/form-box.html">
+    <link rel="import" href="/components/validated-form.html">
     <link rel="import" href="/components/sb-header.html">
-<!--     <link rel="import" href="/bower_components/polymer/polymer.html">
-    <link rel="import" href="/bower_components/iron-ajax/iron-ajax.html">
- -->    <link rel="import" href="/test-elem.html">
     <style is="custom-style">
     .valid {
         color: var(--google-green-500);
@@ -72,38 +65,12 @@
 
 <body unresolved class="fullbleed">
     <sb-header>
-        <div class="vertical-section vertical-section-container centered">
-            <template is="dom-bind">
-                <h1>Login</h1>
-                <test-elem id="testele"></test-elem>
-                <form method="post" action="/auth/local">
-                    <!-- Username -->
-                    <paper-input id="username" name="identifier" label="Username" required></paper-input>
-                    <!-- <span class="valid" hidden$="[[!usernameValid]]">valid</span> -->
-                    <!-- <span class="invalid" hidden$="[[usernameValid]]">invalid</span> -->
-                    <!-- Password -->
-                    <paper-input id="password" type="password" name="password" label="Password"></paper-input>
-                    <!-- <span class="valid" hidden$="[[!passwordValid]]">valid</span> -->
-                    <!-- <span class="invalid" hidden$="[[passwordValid]]">invalid</span> -->
-                    <!-- Submit -->
-                    <br>
-                    <br>
-                    <paper-button raised onclick="clickHandler(event)">Submit</paper-button>
-                    <paper-toast id="loginToast" text="Missing text"></paper-toast>
-                </form>
-            </template>
-        </div>
+        <form-box name="Login">
+            <validated-form url="/auth/local">
+                <!-- <h2>Login</h2> -->
+                <validated-input id="identifier" name="Username"></validated-input>
+                <validated-input id="password" type="password" name="Password"></validated-input>
+            </validated-form>
+        </form-box>
     </sb-header>
-    <script>
-    function clickHandler(event) {
-        var te = document.querySelector("#testele");
-
-        var data = {
-            identifier: document.querySelector("#username").value,
-            password: document.querySelector("#password").value,
-        }
-        te.submit (data);
-    }
-
-    </script>
 </body>
