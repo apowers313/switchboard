@@ -1,0 +1,48 @@
+<link rel="import" href="/bower_components/polymer/polymer.html">
+<link rel="import" href="/bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="/bower_components/paper-toast/paper-toast.html">
+<dom-module id="validated-form-submit">
+    <style>
+    </style>
+    <template>
+        <iron-ajax id="ajaxsubmit" on-response="getResponse"></iron-ajax>
+        <paper-toast id="loginToast" text="Missing text"></paper-toast>
+    </template>
+    <script>
+    Polymer({
+        is: 'validated-form-submit',
+        properties: {
+            url: {
+                type: String,
+                value: "NOTSET"
+            },
+            contentType: {
+                type: String,
+                value: "application/json"
+            },
+            method: {
+                type: String,
+                value: "POST"
+            },
+        },
+        ready: function() {
+            this.$.ajaxsubmit.url = this.url;
+            this.$.ajaxsubmit.method = this.method;
+            this.$.ajaxsubmit.contentType = this.contentType;
+            this.$.ajaxsubmit.verbose = true;
+            this.$.ajaxsubmit.response = this.testFunc;
+        },
+        submit: function(data) {
+            console.log("submitting");
+            this.$.ajaxsubmit.body = JSON.stringify(data);
+            this.$.ajaxsubmit.generateRequest();
+        },
+        getResponse: function(e) {
+            console.log ("last response:", e.target.lastResponse);
+            var toast = document.querySelector('#loginToast');
+            toast.text = e.target.lastResponse.msg;
+            toast.show();
+        }
+    });
+    </script>
+</dom-module>
