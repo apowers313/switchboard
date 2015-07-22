@@ -1,0 +1,53 @@
+<link rel="import" href="/bower_components/polymer/polymer.html">
+<link rel="import" href="/bower_components/paper-button/paper-button.html">
+<link rel="import" href="/components/validated-form-submit.html">
+<dom-module id="validated-form">
+    <style>
+
+    </style>
+    <template>
+        <content></content>
+        <validated-form-submit url="{{url}}" method="{{method}}" contentType="{{contentType}}" id="ajaxSubmit"></validated-form-submit>
+        <paper-button raised on-click="submitForm">Submit</paper-button>
+    </template>
+    <script>
+    Polymer({
+        is: 'validated-form',
+        properties: {
+        	url: {
+        		type: String,
+        		value: "NOVALUE"
+        	},
+        	method: {
+        		type: String,
+        		value: "POST"
+        	},
+        	contentType: {
+        		type: String,
+        		value: "application/json"
+        	}
+        },
+        submitForm: function() {
+            var as = document.querySelector("#ajaxSubmit");
+
+            var inputs = Polymer.dom(this).querySelectorAll("validated-input");
+            console.log ("Inputs:",inputs);
+            var data = {}
+            var valid = true;
+            for (var i = 0; i < inputs.length; i++)
+            {
+            	console.log ("Label:", inputs[i].name);
+            	console.log ("ID:", inputs[i].id);
+            	console.log ("Value:", inputs[i].value);
+            	var value = inputs[i].value;
+            	var key = inputs[i].id;
+            	if (key === undefined) key = inputs[i].name;
+            	data[key] = value;
+            	if (!inputs[i].valid) valid = false;
+            }
+            as.submit(data);
+            console.log("Submitting form:",data);
+        }
+    });
+    </script>
+</dom-module>
