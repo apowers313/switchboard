@@ -1,6 +1,7 @@
 <link rel="import" href="/bower_components/polymer/polymer.html">
 <link rel="import" href="/bower_components/paper-button/paper-button.html">
 <link rel="import" href="/components/validated-form-submit.html">
+<link rel="import" href="/bower_components/paper-toast/paper-toast.html">
 <dom-module id="validated-form">
     <style>
 
@@ -10,6 +11,7 @@
         <validated-form-submit url="{{url}}" method="{{method}}" contentType="{{contentType}}" id="ajaxSubmit"></validated-form-submit>
         <br /><br />
         <paper-button raised on-click="submitForm">Submit</paper-button>
+        <paper-toast id="responseToast" text="Missing text"></paper-toast>
     </template>
     <script>
     Polymer({
@@ -46,8 +48,15 @@
             	data[key] = value;
             	if (!inputs[i].valid) valid = false;
             }
-            as.submit(data);
-            console.log("Submitting form:",data);
+            console.log ("Valid?", valid);
+            if (!valid) {
+	            var toast = document.querySelector('#responseToast');
+	            toast.text = "Please correct all errors before submitting";
+	            toast.show();
+        	} else {
+	            as.submit(data);
+	            console.log("Submitting form:",data);
+        	}
         }
     });
     </script>
