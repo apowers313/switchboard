@@ -6,7 +6,7 @@
     </style>
     <template>
         <iron-ajax id="ajaxsubmit" on-response="getResponse"></iron-ajax>
-        <paper-toast id="loginToast" text="Missing text"></paper-toast>
+        <paper-toast id="responseToast" text="Missing text"></paper-toast>
     </template>
     <script>
     Polymer({
@@ -39,8 +39,8 @@
         },
         getResponse: function(e) {
             console.log ("last response:", e.target.lastResponse);
-            var toast = document.querySelector('#loginToast');
-            toast.text = e.target.lastResponse.msg;
+            var toast = document.querySelector('#responseToast');
+            toast.text = (e.target.lastResponse ? e.target.lastResponse.msg : "Can you please try a little harder?");
             toast.show();
         }
     });
