@@ -9,7 +9,7 @@
     </style>
     <template>
         <paper-input type$="[[type]]" id$="[[id]]" label$="[[name]]" bind-value="{{value}}" on-blur="blurValidate"></paper-input>
-        <span class="invalid" hidden$="[[valid]]">invalid</span>
+        <span class="invalid" hidden$="[[valid]]">{{invalidMsg}}</span>
     </template>
     <script>
     Polymer({
@@ -23,7 +23,6 @@
             value: {
                 type: String,
                 notify: true,
-                observer: "testObserver"
             },
             type: {
                 type: String,
@@ -41,9 +40,10 @@
                 type: Boolean,
                 value: true
             },
-        },
-        testObserver: function() {
-            console.log ("Change observed!");
+            invalidMsg: {
+                type: String,
+                value: "invalid"
+            }
         },
         ready: function() {
             console.log("Ready Name:", this.name);
@@ -59,18 +59,46 @@
             return false;
         },
         noValidator: function() {
-            console.log ("noValidator");
+            console.log("noValidator");
+            return true;
         },
-
         verifyNonEmpty: function(e) {
+            var value = e.target.value;
+            if (value === null || value == "") return false;
             console.log("Verify Non Empty", e);
+            return true;
         },
+        validateUsername: function(e) {
+            var value = e.target.value;
+            console.log("Not doing anything for username");
+            return this.verifyNonEmpty(e);
+        },
+        validateEmail: function(e) {
+            var value = e.target.value;
+            // var value = Array.isArray(values) ? values.join('') : values;
+            if (value.match(/.+@.+\..+/) !== null) {
+                return true;
+            }
 
+            return false;
+        },
+        validatePassword: function(e) {
+            var value = e.target.value;
+            // var value = Array.isArray(values) ? values.join('') : values;
+            // Password must be 8 to 255 characters, have a lower case, upper case and a digit
+            if (value.match(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).{8,255}/) !== null) {
+                return true;
+            }
+
+            this.invalidMsg = "8 characters including upper, lower, number."
+            return false;
+        },
         blurValidate: function(e) {
-            console.log("Doing blur validation:", this.validate);
-            if (this.validate !== undefined) {
+            console.log("Doing blur validation:", this.validator);
+            if (this.validator !== undefined) {
                 console.log("Doing validation");
-                this.isValid = this[this.validate](e);
+                this.valid = this[this.validator](e);
+                console.log ("valid?", this.valid);
             } else {
                 console.log("No validation");
             }
