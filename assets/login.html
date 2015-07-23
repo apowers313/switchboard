@@ -68,8 +68,8 @@
         <form-box name="Login">
             <validated-form url="/auth/local">
                 <!-- <h2>Login</h2> -->
-                <validated-input id="identifier" name="Username"></validated-input>
-                <validated-input id="password" type="password" name="Password"></validated-input>
+                <validated-input id="identifier" name="Username" validator="verifyNonEmpty"></validated-input>
+                <validated-input id="password" type="password" name="Password" validator="verifyNonEmpty"></validated-input>
             </validated-form>
         </form-box>
     </sb-header>
