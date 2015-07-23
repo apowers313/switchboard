@@ -1,0 +1,97 @@
+<link rel="import" href="/bower_components/polymer/polymer.html">
+<link rel="import" href="/bower_components/paper-item/paper-item.html">
+<link rel="import" href="/bower_components/paper-item/paper-item.html">
+<link rel="import" href="/bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="/bower_components/iron-flex-layout/iron-flex-layout.html">
+<dom-module id="menu-item">
+    <style>
+    .separatorAbove {
+        border-top: 1px solid grey;
+    }
+    
+    .seperatorBelow {
+        border-bottom: 1px solid grey;
+    }
+    
+    paper-item {
+        padding: 0px 40px 0px 30px;
+        font-weight: 500;
+        font-size: 13px;
+        white-space: nowrap;
+        cursor: pointer;
+    }
+    
+    .leftIcon {
+        margin-right: 18px;
+    }
+
+    .indent {
+        padding-left: 60px;
+    }
+    </style>
+    <template>
+        <paper-item on-click="clickMe">
+            <!-- XXX - splitting up the template line messes up formatting -->
+            <template is="dom-if" if="{{icon}}"><iron-icon icon="{{icon}}" class="leftIcon"></iron-icon></template>
+            <div>[[name]]</div>
+            <template is="dom-if" if="{{parentMenu}}"><iron-icon icon="[[expandedIcon]]"></iron-icon></template>
+        </paper-item>
+        
+        <div hidden="[[!expanded]]">
+            <div class="indent">
+            	<content></content>
+            </div>
+        </div>
+    </template>
+    <script>
+    Polymer({
+        is: 'menu-item',
+        properties: {
+            name: {
+                type: String,
+                value: "NONAME"
+            },
+            icon: {
+                type: String,
+                // value: "cancel"
+            },
+            parentMenu: {
+                type: Boolean,
+                value: false
+            },
+            expanded: {
+                type: Boolean,
+                value: true,
+                observer: "calcExpanded"
+            },
+            expandedIcon: {
+                type: String,
+                value: "expand-more"
+            },
+            url: {
+            	type: String,
+            	value: "/"
+            }
+        },
+        ready: function() {
+            console.log("Name is:", this.name);
+            console.log ("parentMenu is:", this.parentMenu);
+        },
+        calcExpanded: function() {
+            if (this.expanded) {
+                this.expandedIcon = "expand-less"
+            } else {
+                this.expandedIcon = "expand-more"
+            }
+        },
+        clickMe: function() {
+        	console.log ("got click");
+        	if (this.parentMenu) {
+        		this.expanded = !this.expanded;
+        	} else {
+        		window.location.href = this.url;
+        	}
+        }
+    });
+    </script>
+</dom-module>
