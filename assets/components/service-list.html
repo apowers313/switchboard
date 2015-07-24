@@ -4,7 +4,7 @@
     <style>
     </style>
     <template>
-        <iron-ajax auto url="/service" handle-as="json" last-response="{{serviceList}}"></iron-ajax>
+        <iron-ajax auto url="/service" handle-as="json" last-response="{{serviceList}}" on-response="gotResponse"></iron-ajax>
         <!-- <iron-list items="[[data]]" as="item"> -->
         <!-- <template> -->
         <template is="dom-repeat" items="{{serviceList}}">
@@ -35,6 +35,9 @@
                 }]
             }
         },
+        gotResponse: function() {
+            console.log ("Got iron-ajax response.")
+        }
     });
     </script>
 </dom-module>
