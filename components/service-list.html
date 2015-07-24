@@ -4,7 +4,7 @@
     <style>
     </style>
     <template>
-        <iron-ajax auto url="http://localhost:5000/service" handle-as="json" last-response="{{serviceList}}"></iron-ajax>
+        <iron-ajax auto url="/service" handle-as="json" last-response="{{serviceList}}"></iron-ajax>
         <!-- <iron-list items="[[data]]" as="item"> -->
         <!-- <template> -->
         <template is="dom-repeat" items="{{serviceList}}">
