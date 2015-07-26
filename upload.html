@@ -1,0 +1,31 @@
+<h1>Upload</h1>
+
+<form id="uploadForm"
+      enctype="multipart/form-data"
+      action="/service"
+      method="post">
+      This isn't pretty, but the idea is to upload your Postman file full of your calls and enter the information necessary to authorize with the service. Assuming you can do both of these things, you can define a new service for everyone to use!<br>
+      <hr />
+      <h2>Authorization Stuff</h2>
+      	<select name="auth">
+      		<option value="OAuth2">OAuth2</option>
+      	</select><br />
+      	<!-- Make these dynamic based on the auth selection type -->
+      	The Authorization URL and Token URL are defined by the service. Read the service documentation for information about what to use for these URLs.<br />
+      	Authorization URL: <input type="text" name="auth_url" /><br />
+      	Token URL: <input type="text" name="token_url" /><br />
+      	The Client ID and Client Secret are created by someone who has access to the service. Either create these for the service, or use the Developer Sign-up URL to indicate where others can generate their own Client ID and Secret (or be really nice and enter all the fields).<br />
+      	Client ID: <input type="text" name="client_id" /><br />
+      	Client Secret: <input type="text" name="client_secret" /><br />
+      	Developer Sign-up URL: <input type="text" name="dev_sign_up_url" /><br />
+      	Optional scope argument to indicate what level of access is being requested during the authentication (read, write, etc.)<br />
+      	Scope: <input type="text" name="scope" /><br />
+      	Callback URL must be set to: http://... [TODO: this host]
+            JavaScript Domain must be set to: http://... [TODO: this host]
+		<hr />
+		<h2>Select Postman File</h2>
+			<input type="file" name="uploadFile" />
+      	<hr />
+    	<input type="submit" value="submit"/>
+
+</form>
