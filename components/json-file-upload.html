@@ -1,0 +1,173 @@
+<link rel="import" href="/bower_components/polymer/polymer.html">
+<dom-module id="json-file-upload">
+    <style>
+    :host {
+        display: block;
+    }
+    
+    #filedrag {
+        display: block;
+        font-weight: bold;
+        text-align: center;
+        padding: 1em 0;
+        margin: 1em 0;
+        color: #555;
+        border: 2px dashed #555;
+        border-radius: 7px;
+        cursor: default;
+        min-width: 300px;
+        min-height: 100px;
+    }
+    
+    #filedrag.hover {
+        color: #f00;
+        border-color: #f00;
+        border-style: solid;
+        box-shadow: inset 0 3px 4px #888;
+    }
+    
+    #filedrag.finalized {
+        color: #555;
+        border-color: #555;
+        border-style: solid;
+        -webkit-box-shadow: 4px 4px 10px 0px rgba(204, 204, 204, 1);
+        -moz-box-shadow: 4px 4px 10px 0px rgba(204, 204, 204, 1);
+        box-shadow: 4px 4px 10px 0px rgba(204, 204, 204, 1);
+        /*box-shadow: outset 0 3px 4px #888;*/
+    }
+    </style>
+    <template>
+        <input type="file" id="fileselect" name="fileselect[]" on-change="FileSelectHandler">
+        <div id="filedrag" on-drop="FileSelectHandler" on-dragover="FileDragHover" on-dragleave="FileDragHover">{{dropMsg}}</div>
+    </template>
+    <script>
+    Polymer({
+        is: 'json-file-upload',
+
+        properties: {
+            dropMsg: {
+                type: String,
+                value: "drop file here"
+            },
+
+            value: {
+                type: Object
+            }
+        },
+
+        finalized: false,
+
+        validate: function () {
+            if (this.value !== undefined && this.VerifyJson(this.value)) return true;
+
+            return false;
+        },
+
+        // sets the style class based on whether we are hovering or not
+        FileDragHover: function(e) {
+            console.log("drag hover");
+            e.stopPropagation();
+            e.preventDefault();
+            if (e.type == "dragover") {
+                e.target.className = addClass(e.target.className, "hover");
+                if (this.finalized) e.target.className = removeClass(e.target.className, "finalized");
+            } else {
+                e.target.className = removeClass(e.target.className, "hover");
+                if (this.finalized) e.target.className = addClass(e.target.className, "finalized");
+            }
+            // e.target.className = replaceClass(e.target.className, (e.type == "dragover" ? "hover" : ""));
+        },
+
+        // got a drop / select file event, let's do something with the file
+        FileSelectHandler: function(e) {
+            console.log("file select handler")
+
+            // cancel event and hover styling
+            this.FileDragHover(e);
+
+            // fetch FileList object
+            var files = e.target.files || e.dataTransfer.files;
+            console.log("# Files:", files.length);
+            if (files.length != 1) {
+                console.log("Slow down there bucko! One file at a time...");
+            }
+
+            this.ParseFile(files[0]);
+        },
+
+        // output file information
+        ParseFile: function(file) {
+            console.log("File name:", file.name);
+            console.log("File type:", file.type);
+            console.log("File size:", file.size);
+
+            var reader = new FileReader();
+            var scope = this;
+            reader.onload = function(e) {
+                // console.log("Read file:", e.target.result);
+                try {
+                    var json = JSON.parse(e.target.result);
+                    console.log("Name:", json.name);
+                    console.log("Description:", json.description);
+                    if (scope.VerifyJson(json)) {
+                        scope.ShowFileInfo(json);
+                    } else {
+                        console.log("GOOD NEWS! It was JSON. Bad news, it wasn't a Postman file");
+                        // TODO: alert that this isn't the right file type
+                    }
+                } catch (e) {
+                    console.log("Caught Error:", e);
+                    // TODO: alert that this isn't the right file type
+                }
+            };
+            reader.readAsText(file);
+        },
+
+        VerifyJson: function(json) {
+            if (json.id === undefined ||
+                json.name === undefined
+                // ||
+                // json.description === undefined ||
+                // json.requests === undefined ||
+                // json.order === undefined
+            ) {
+                console.log("ID is:", json.id);
+                console.log("Name is:", json.name);
+                return false;
+            }
+
+            return true;
+        },
+
+        ShowFileInfo: function(json) {
+        	this.value = json;
+            // var filedrag = Polymer.dom(this).querySelector("#filedrag")
+            var filedrag = document.getElementById("filedrag");
+            console.log("filedrag is:", filedrag);
+            console.log("filedrag class is:", filedrag.className);
+            this.finalized = true;
+            filedrag.className = addClass(filedrag.className, "finalized");
+            this.dropMsg = json.name;
+        }
+    });
+
+    function addClass(cls, tgt) {
+        cls = removeClass(cls, tgt); // lazy way of making sure we don't keep adding it over and over
+        // console.log("Adding " + tgt + " to class:", cls)
+        cls = cls + " " + tgt;
+
+        var rx = new RegExp(cls);
+        cls = cls.replace(/hover/, tgt);
+        // console.log("Class is now:", cls)
+        return cls;
+    }
+
+    function removeClass(cls, tgt) {
+        // console.log("Replacing class for:", cls)
+        var rx = new RegExp(tgt);
+        cls = cls.replace(rx, "").trim();
+        // console.log("Class is now:", cls)
+        return cls;
+    }
+    </script>
+</dom-module>
