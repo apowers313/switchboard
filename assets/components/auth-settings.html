@@ -89,11 +89,16 @@ var authMethods = [
         </select>
         <div id="authfields"></div>
         <br />
-        <paper-button raised>Submit</paper-button>
     </template>
     <script>
     Polymer({
         is: 'auth-settings',
+
+        properties: {
+            value: {
+                type: String
+            }
+        },
 
         ready: function() {
             this.authMethods = authMethods;
@@ -115,6 +120,8 @@ var authMethods = [
             for (var i = 0; i < options.length; i++) {
                 if (options[i].selected === true) break;
             }
+            this.value = this.authMethods[i].selectName;
+            console.log ("Set auth value to:", this.value);
             var selectedAuth = this.authMethods[i];
             var args = selectedAuth.arguments;
             var insertPoint = this.$.authfields;
@@ -136,32 +143,9 @@ var authMethods = [
             	console.log ("Adding validation method:", args[i].verificationMethod);
             	toAdd.validate = args[i].verificationMethod;
 				Polymer.dom(insertPoint).appendChild(toAdd);
-
-            	// // add paper-inpug
-             //    var toAdd = document.createElement("paper-input");
-             //    console.log("Adding input [" + i + "]:", args[i].name);
-             //    toAdd.label = args[i].name;
-             //    toAdd.id = args[i].id;
-             //    console.log("Verification Method is:", args[i].verificationMethod);
-             //    toAdd.addEventListener("blur", args[i].verificationMethod);
-             //    Polymer.dom(insertPoint).appendChild(toAdd);
-
-             //    // add span
-             //    var spanAdd = document.createElement("span");
-             //    var prop = args[i].id + "Valid";
-             //    Polymer.dom(spanAdd).setAttribute("hidden", "{{" + prop + "}}")
-             //    Polymer.dom(insertPoint).appendChild(spanAdd);
             }
+            Polymer.dom.flush();
         },
-        // verifyUrl: function(e) {
-        //     console.log("Verify URL",e);
-        //     console.log("Event on",e.srcElement.id)
-        //     var prop = e.srcElement.id + "Valid";
-        //     this.properties[prop] = false;
-        // },
-        // verifyNonEmpty: function(e) {
-        //     console.log("Verify Non Empty",e);
-        // }
     });
     </script>
 </dom-module>
