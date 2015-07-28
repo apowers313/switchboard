@@ -16,6 +16,7 @@
     <script>
     Polymer({
         is: 'validated-form',
+
         properties: {
         	url: {
         		type: String,
@@ -30,10 +31,12 @@
         		value: "application/json"
         	}
         },
+
         submitForm: function() {
             var as = document.querySelector("#ajaxSubmit");
 
-            var inputs = Polymer.dom(this).querySelectorAll("validated-input");
+            // Collect the values from all the validated-inputs
+            var inputs = document.getElementsByTagName("validated-input");
             console.log ("Inputs:",inputs);
             var data = {}
             var valid = true;
@@ -48,6 +51,29 @@
             	data[key] = value;
             	if (!inputs[i].valid) valid = false;
             }
+            
+            // Manage the auth-settings, if they exist
+            var authSettings = document.getElementsByTagName("auth-settings");
+            if (authSettings && authSettings.length > 0) {
+                data.authtype = authSettings[0].value;
+                console.log ("authtype is:", data.authType);
+            }
+
+            // Manage the json-file-upload, if one exists
+            var files = document.getElementsByTagName("json-file-upload");
+            if (files && files.length > 0) {
+                if (files.length == 1) {
+                    data.file = files[0].value;
+                    valid = valid && files[0].validate();
+                    for (var i = 0; i < data.file.requests.length; i++) {
+                        delete data.file.requests[i].responses;
+                    }
+                } else {
+                    console.log ("Too many files -- just pick one!");
+                    valid = false;
+                }
+            }
+
             console.log ("Valid?", valid);
             if (!valid) {
 	            var toast = document.querySelector('#responseToast');
