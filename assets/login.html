@@ -66,7 +66,7 @@
 <body unresolved class="fullbleed">
     <sb-header>
         <form-box name="Login">
-            <validated-form url="/auth/local">
+            <validated-form url="/auth/local" after="/profile">
                 <!-- <h2>Login</h2> -->
                 <validated-input id="identifier" name="Username" validator="verifyNonEmpty"></validated-input>
                 <validated-input id="password" type="password" name="Password" validator="verifyNonEmpty"></validated-input>

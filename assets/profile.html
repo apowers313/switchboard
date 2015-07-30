@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>User Profile</title>
+	<script src="/bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+	<link rel="import" href="/components/user-profile.html">
+</head>
+<body>
+
+<h2>Profile</h2>
+This is your profile. You sure are purdy.<br />
+<br />
+Authenticated: <%= req.session.authenticated %><br />
+User: <%= req.session.user %><br />
+User ID: <%= req.session.passport.user %><br />
+Email:<br />
+Created:<br />
+<!-- Session: <%= JSON.stringify (req.session) %> -->
+<br />
+<h2>Stored Authorizations</h2><br />
+<!-- http://localhost:5000/profile/auth -->
+<br />
+<h2>Services Created</h2><br />
+<br />
+
+</body>
+</html>
