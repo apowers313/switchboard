@@ -1,7 +1,7 @@
 <link rel="import" href="/bower_components/polymer/polymer.html">
 <link rel="import" href="/bower_components/paper-material/paper-material.html">
 <link rel="import" href="/bower_components/iron-flex-layout/iron-flex-layout.html">
-<dom-module id="form-box">
+<dom-module id="reading-box">
     <style>
     :host { /* top center of page */
         @apply(--layout-horizontal);
@@ -13,28 +13,21 @@
     .formbox {
         padding: 0px 25px 25px 25px;
         margin: 10px;
-        max-width: 400px;
-        width: 50%;
-        min-width: 200px;
+        max-width: 800px;
+        width: 60%;
+        min-width: 300px;
         display: inline-block;
         /*@apply(--layout-flex);*/
     }
     </style>
     <template>
             <paper-material elevation="3" class="formbox">
-                <h2><div>{{name}}</div></h2>
                 <content></content>
             </paper-material>
     </template>
     <script>
     Polymer({
-        is: 'form-box',
-        properties: {
-            name: {
-                type: String,
-                value: "Form"
-            }
-        }
+        is: 'reading-box'
     });
     </script>
 </dom-module>

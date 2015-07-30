@@ -7,6 +7,7 @@
     <!-- <link rel="stylesheet" href="/js/monokai_sublime.css"> -->
     <script src="/bower_components/webcomponentsjs/webcomponents-lite.js"></script>
     <link rel="import" href="/components/sb-header.html">
+    <link rel="import" href="/components/reading-box.html">
     <link rel="stylesheet" href="//cdn.jsdelivr.net/highlight.js/8.6/styles/default.min.css">
     <script src="//cdn.jsdelivr.net/highlight.js/8.6/highlight.min.js"></script>
     <link rel="stylesheet" href="/js/monokai_sublime.css">
@@ -18,9 +19,11 @@
     }
     </style>
   </head>
-  <body>  
-    <!-- <sb-header> -->
-    <%=content%>
-    <!-- </sb-header> -->
+  <body unresolve class="fullbleed">  
+    <sb-header>
+      <reading-box>
+        <%=content%>
+      </reading-box>
+    </sb-header>
   </body>
 </html>
