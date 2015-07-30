@@ -29,7 +29,15 @@
         	contentType: {
         		type: String,
         		value: "application/json"
-        	}
+        	},
+            after: {
+                type: String,
+                value: "/"
+            },
+        },
+
+        doRedirect: function() {
+            window.location.href = this.after;
         },
 
         submitForm: function() {
@@ -75,14 +83,37 @@
             }
 
             console.log ("Valid?", valid);
+
             if (!valid) {
 	            var toast = document.querySelector('#responseToast');
 	            toast.text = "Please correct all errors before submitting";
 	            toast.show();
         	} else {
-	            as.submit(data);
-	            console.log("Submitting form:",data);
-        	}
+                console.log("Submitting form:", data);
+                var scope = this;
+	            as.submit(data, function (res) {
+                    console.log ("Response was:", res);
+                    var success, msg;
+
+                    if (res !== undefined && res !== null) {
+                        msg = res.msg;
+                        success = res.success;
+                    } else {
+                        msg = "Can you please try a little harder?";
+                        success = false;
+                    }
+
+                    var toast = document.querySelector('#responseToast');
+                    toast.text = msg;
+                    toast.show();
+
+                    console.log ("Success is:", success);
+                    console.log ("After is:", scope.after);
+                    if (success && scope.after) {
+                        scope.async (scope.doRedirect, 3000);
+                    }
+                });
+            }
         }
     });
     </script>
