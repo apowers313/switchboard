@@ -70,9 +70,8 @@
 
 <body unresolved class="fullbleed">
     <sb-header>
-            <form-box name="Register">
-            <validated-form url="/auth/local/register">
-                <!-- <h2>Login</h2> -->
+        <form-box name="Register">
+            <validated-form url="/auth/local/register" after="/profile">
                 <validated-input id="username" name="Username" validator="validateUsername"></validated-input>
                 <validated-input id="email" name="Email" validator="validateEmail"></validated-input>
                 <validated-input id="password" type="password" name="Password" validator="validatePassword"></validated-input>

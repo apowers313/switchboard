@@ -1,16 +1,16 @@
 <link rel="import" href="/bower_components/polymer/polymer.html">
 <link rel="import" href="/bower_components/iron-ajax/iron-ajax.html">
-<link rel="import" href="/bower_components/paper-toast/paper-toast.html">
+
 <dom-module id="validated-form-submit">
     <style>
     </style>
     <template>
         <iron-ajax id="ajaxsubmit" on-response="getResponse"></iron-ajax>
-        <paper-toast id="responseToast" text="Missing text"></paper-toast>
     </template>
     <script>
     Polymer({
         is: 'validated-form-submit',
+
         properties: {
             url: {
                 type: String,
@@ -24,7 +24,12 @@
                 type: String,
                 value: "POST"
             },
+            cb: {
+                type: Function,
+                value: null
+            },
         },
+
         ready: function() {
             this.$.ajaxsubmit.url = this.url;
             this.$.ajaxsubmit.method = this.method;
@@ -32,16 +37,25 @@
             this.$.ajaxsubmit.verbose = true;
             this.$.ajaxsubmit.response = this.testFunc;
         },
-        submit: function(data) {
+
+        submit: function(data, cb) {
             console.log("submitting");
             this.$.ajaxsubmit.body = JSON.stringify(data);
             this.$.ajaxsubmit.generateRequest();
+            console.log ("Callback is:", cb);
+            if (cb) {
+                console.log ("Setting callback");
+                this.cb = cb;
+            }
         },
+
         getResponse: function(e) {
             console.log ("last response:", e.target.lastResponse);
-            var toast = document.querySelector('#responseToast');
-            toast.text = (e.target.lastResponse ? e.target.lastResponse.msg : "Can you please try a little harder?");
-            toast.show();
+            console.log ("Callback is:", this.cb)
+            if (this.cb) {
+                console.log ("Doing response callback");
+                this.cb (e.target.lastResponse);
+            }
         }
     });
     </script>
