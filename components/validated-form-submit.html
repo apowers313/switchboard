@@ -39,7 +39,7 @@
         },
 
         submit: function(data, cb) {
-            console.log("submitting");
+            console.log("Submitting:", data);
             this.$.ajaxsubmit.body = JSON.stringify(data);
             this.$.ajaxsubmit.generateRequest();
             console.log ("Callback is:", cb);
