@@ -1,0 +1,46 @@
+<link rel="import" href="/bower_components/polymer/polymer.html">
+<link rel="import" href="/bower_components/paper-material/paper-material.html">
+<link rel="import" href="/bower_components/iron-collapse/iron-collapse.html">
+<link rel="import" href="/bower_components/paper-item/paper-item.html">
+<link rel="import" href="/bower_components/paper-menu/paper-menu.html">
+<link rel="import" href="/components/sb-theme.html">
+<link rel="import" href="/components/menu-item.html">
+<dom-module id="menu-drawer">
+    <style>
+    .menudrawer {
+        border-right: 1px solid grey;
+        border-bottom: 1px solid grey;
+        height: 100%;
+    }
+    
+    .tall {
+        height: 100%;
+        display: block;
+        max-width: 300px;
+    }
+    </style>
+    <template>
+        <!-- <div class="menudrawer">test</div> -->
+        <iron-collapse id="collapse" horizontal class="tall">
+            <paper-material id="myDrawer" class="menudrawer layout vertical " elevation="0">
+                <paper-menu>
+                    <menu-item name="Browse Services" icon="view-list" url="/services.html"></menu-item>
+                    <menu-item name="Create" icon="add-circle" url="/upload.html"></menu-item>
+                    <menu-item name="Documentation" icon="description" parent-menu="true">
+                        <menu-item name="Use" icon="cloud-download" url="/docs/use.html"></menu-item>
+                        <menu-item name="About" url="/docs/about.html"></menu-item>
+                        <menu-item name="FAQ" url="/docs/faq.html"></menu-item>
+                    </menu-item>
+                                    </paper-menu>
+            </paper-material>
+        </iron-collapse>
+    </template>
+    <script>
+    Polymer({
+        is: 'menu-drawer',
+        toggle: function() {
+            this.$.collapse.toggle();
+        },
+    });
+    </script>
+</dom-module>

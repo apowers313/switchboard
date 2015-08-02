@@ -1,0 +1,30 @@
+<link rel="import" href="/bower_components/polymer/polymer.html">
+<link rel="import" href="/bower_components/iron-validator-behavior/iron-validator-behavior.html">
+<script>
+Polymer({
+    is: 'registration-validate',
+    behaviors: [
+        Polymer.IronValidatorBehavior
+    ],
+    validateUsername: function(values) {
+        return true;
+    },
+    validateEmail: function(values) {
+        var value = Array.isArray(values) ? values.join('') : values;
+        if (value.match(/.+@.+\..+/) !== null) {
+            return true;
+        }
+
+        return false;
+    },
+    validatePassword: function(values) {
+        var value = Array.isArray(values) ? values.join('') : values;
+        // Password must be 8 to 255 characters, have a lower case, upper case and a digit
+        if (value.match(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).{8,255}/) !== null) {
+            return true;
+        }
+
+        return false;
+    },
+});
+</script>

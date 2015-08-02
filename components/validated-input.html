@@ -1,0 +1,108 @@
+<link rel="import" href="/bower_components/polymer/polymer.html">
+<link rel="import" href="/bower_components/paper-input/paper-input.html">
+<link rel="import" href="/components/auth-validate.html">
+<dom-module id="validated-input">
+    <style>
+    .invalid {
+        color: var(--google-red-500);
+    }
+    </style>
+    <template>
+        <paper-input type$="[[type]]" id$="[[id]]" label$="[[name]]" bind-value="{{value}}" on-blur="blurValidate"></paper-input>
+        <span class="invalid" hidden$="[[valid]]">{{invalidMsg}}</span>
+    </template>
+    <script>
+    Polymer({
+        is: 'validated-input',
+
+        properties: {
+            name: {
+                type: String,
+                value: "NONAME"
+            },
+            value: {
+                type: String,
+                notify: true,
+            },
+            type: {
+                type: String,
+                value: "text"
+            },
+            id: {
+                type: String,
+                value: "NOID"
+            },
+            validator: {
+                type: String,
+                value: "noValidator"
+            },
+            valid: {
+                type: Boolean,
+                value: true
+            },
+            invalidMsg: {
+                type: String,
+                value: "invalid"
+            }
+        },
+        ready: function() {
+            console.log("Ready Name:", this.name);
+            console.log("Ready Validate:", this.validate);
+            // console.log("Invalid",this.invalid);
+        },
+
+        verifyUrl: function(e) {
+            console.log("Verify URL", e);
+            console.log("Event on", e.srcElement.id)
+                // var prop = e.srcElement.id + "Valid";
+                // this.properties[prop] = false;
+            return false;
+        },
+        noValidator: function() {
+            console.log("noValidator");
+            return true;
+        },
+        verifyNonEmpty: function(e) {
+            var value = e.target.value;
+            if (value === null || value == "") return false;
+            console.log("Verify Non Empty", e);
+            return true;
+        },
+        validateUsername: function(e) {
+            var value = e.target.value;
+            console.log("Not doing anything for username");
+            return this.verifyNonEmpty(e);
+        },
+        validateEmail: function(e) {
+            var value = e.target.value;
+            // var value = Array.isArray(values) ? values.join('') : values;
+            if (value.match(/.+@.+\..+/) !== null) {
+                return true;
+            }
+
+            return false;
+        },
+        validatePassword: function(e) {
+            var value = e.target.value;
+            // var value = Array.isArray(values) ? values.join('') : values;
+            // Password must be 8 to 255 characters, have a lower case, upper case and a digit
+            if (value.match(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).{8,255}/) !== null) {
+                return true;
+            }
+
+            this.invalidMsg = "8 characters including upper, lower, number."
+            return false;
+        },
+        blurValidate: function(e) {
+            console.log("Doing blur validation:", this.validator);
+            if (this.validator !== undefined) {
+                console.log("Doing validation");
+                this.valid = this[this.validator](e);
+                console.log ("valid?", this.valid);
+            } else {
+                console.log("No validation");
+            }
+        }
+    });
+    </script>
+</dom-module>

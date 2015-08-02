@@ -1,0 +1,29 @@
+<link rel="import" href="/bower_components/polymer/polymer.html">
+<link rel="import" href="/bower_components/iron-validator-behavior/iron-validator-behavior.html">
+<script>
+Polymer({
+    is: 'auth-validate',
+    behaviors: [
+        Polymer.IronValidatorBehavior
+    ],
+
+    validateNonEmpty: function(values) {
+        var value = Array.isArray(values) ? values.join('') : values;
+        if (value !== null && value !== "") {
+            console.log ("Confirmed non-empty");
+            return true;
+        }
+
+        return false;
+    },
+    validateUrl: function(values) {
+        var value = Array.isArray(values) ? values.join('') : values;
+        if (value.match(/http[s]*:\/\/.+/) !== null) {
+            console.log ("Matched URL")
+            return true;
+        }
+
+        return false;
+    },
+});
+</script>

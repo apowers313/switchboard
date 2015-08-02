@@ -1,0 +1,76 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+    <title>Login</title>
+    <script src="/bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+    <link rel="import" href="/components/validated-input.html">
+    <link rel="import" href="/components/form-box.html">
+    <link rel="import" href="/components/validated-form.html">
+    <link rel="import" href="/components/sb-header.html">
+    <style is="custom-style">
+    .valid {
+        color: var(--google-green-500);
+    }
+    
+    .invalid {
+        color: var(--google-red-500);
+    }
+    
+    fieldset {
+        border-style: none;
+    }
+    
+    a:link {
+        text-decoration: none;
+        color: black;
+    }
+    
+    a:visited {
+        text-decoration: none;
+        color: black;
+    }
+    
+    a:hover {
+        text-decoration: none;
+        color: black;
+    }
+    
+    a:active {
+        text-decoration: none;
+        color: black;
+    }
+    
+    body {
+        font-family: 'Roboto', 'Noto', sans-serif;
+        font-size: 14px;
+    }
+    
+    .vertical-section {
+        background-color: white;
+        padding: 24px;
+        margin: 24px;
+        @apply(--shadow-elevation-2dp);
+    }
+    
+    .centered {
+        max-width: 400px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    </style>
+</head>
+
+<body unresolved class="fullbleed">
+    <sb-header>
+        <form-box name="Login">
+            <validated-form url="/auth/local" after="/profile">
+                <!-- <h2>Login</h2> -->
+                <validated-input id="identifier" name="Username" validator="verifyNonEmpty"></validated-input>
+                <validated-input id="password" type="password" name="Password" validator="verifyNonEmpty"></validated-input>
+            </validated-form>
+        </form-box>
+    </sb-header>
+</body>
