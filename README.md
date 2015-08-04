@@ -1,6 +1,6 @@
 # Switchboard
 
-![Switchboard](http://localhost:5000/images/switchboard_logo1.png)
+![Switchboard](http://switchboard.center/images/switchboard_logo1.png)
 
 [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/apowers313/switchboard?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Build Status](https://semaphoreci.com/api/v1/projects/3bdc2729-3415-42ba-ab46-7bb07fc2a76d/494127/shields_badge.svg)](https://semaphoreci.com/apowers313/operator)
