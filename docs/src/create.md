@@ -3,7 +3,7 @@ One of the core ideas of Switchboard is enabling anyone to add a service. Hopefu
 
 To that end, we have made creating a service as easy as possible: just enter the calls and parameters that your service needs and everyone can start using it. If your service requires authentication, such as three-legged OAuth2, we have a number of pre-defined authentication types -- just drop in the URLs and keys needed for authentication, and Switchboard will take care of the rest of the protocol complexities and storing the keys to be used with the calls.
 
-Currently, all the work done to define a new service is done using [Postman](https://www.getpostman.com) (although, maybe it will all be done in the browser someday soon). After defining the calls and paramters in Postman, just upload the files to the Switchboard website, set a few settings, and violá! A new service is born... Don't worry, we walk through all the steps below. And if you need any help, feel free to fire up [Gitter](https://gitter.im/apowers313/switchboard) and ask away.
+Currently, all the work done to define a new service is done using [Postman](https://www.getpostman.com) (although, maybe it will all be done in the browser someday soon). After defining the calls and paramters in Postman, just upload the files to the Switchboard website, set a few settings, and viola! A new service is born... Don't worry, we walk through all the steps below. And if you need any help, feel free to fire up Gitter and ask away.
 
 >**A Special Note on Design:**
 >
