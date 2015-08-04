@@ -3,7 +3,7 @@ One of the core ideas of Switchboard is enabling anyone to add a service. Hopefu
 
 To that end, we have made creating a service as easy as possible: just enter the calls and parameters that your service needs and everyone can start using it. If your service requires authentication, such as three-legged OAuth2, we have a number of pre-defined authentication types -- just drop in the URLs and keys needed for authentication, and Switchboard will take care of the rest of the protocol complexities and storing the keys to be used with the calls.
 
-Currently, all the work done to define a new service is done using [Postman](https://www.getpostman.com) (although, maybe it will all be done in the browser someday soon). After defining the calls and paramters in Postman, just upload the files to the Switchboard website, set a few settings, and viola! A new service is born... Don't worry, we walk through all the steps below. And if you need any help, feel free to fire up Gitter and ask away.
+Currently, all the work done to define a new service is done using [Postman](https://www.getpostman.com) (although, maybe it will all be done in the browser someday soon). After defining the calls and paramters in Postman, just upload the files to the Switchboard website, set a few settings, and violá! A new service is born... Don't worry, we walk through all the steps below. And if you need any help, feel free to fire up [Gitter](https://gitter.im/apowers313/switchboard) and ask away.
 
 >**A Special Note on Design:**
 >
@@ -51,7 +51,7 @@ Don't forget to save your calls to a collection as you create them. In the next 
 
 After creating all the parameters and return values for your service, you will probably want to describe them so that people know what to do with them. Describing parameters uses the description field in Postman. We have created a notation similar to [JavaDoc](http://www.oracle.com/technetwork/java/javase/documentation/index-137868.html#format), which we call PostDoc. 
 
-![An example of a PostDoc description](/images/IMG_0900.PNG =250x)
+![An example of a PostDoc description](/images/IMG_0900.PNG)
 *An example of a PostDoc description in a Postman description field.*
 
 This notation uses the `@param` keyword to describe parameters. The most general form of a parameter is `@param name type description`. Let's look at each one of those pieces:
@@ -76,34 +76,49 @@ Finally, export your service from Postman. This is as simple as selecting the th
 Exporting your service creates a JSON file that you will later upload to Switchboard.
 
 ## Uploading and Configuring Services
+The final step in creating your service is uploading it to Switchboard at the [upload page](/upload.html). Simply drag-and-drop or select your file to upload it. Since Postman doesn't save any authentication information, you also need to set your authentication paramaters, such as what type of authentication is being used, the URLs for the authentication, and any client keys or secrets that are requred. When you are done, simply click submit and you are done.
+
+Note that there are relatively few authentication methods implemented right now -- if you have one you need, create a [GitHub Issue](https://github.com/apowers313/switchboard/issues) and we will add it as soon as possible!
+
+To verify that your service is available, you can now [browse through the services](/services.html) to see your service listed. Others will be able to see your service, the documentation of your calls and paramaters, and will be able to authenticate and make calls in [the same way](/docs/use.html) as other services.
 
 ## An Example: Creating a Google Drive Service
+This section gives an example of creating a new Google Drive service. Most of the steps should be the same or similar for other services.
 
-1. Find the developer documentation
-2. Configure the service
-3. Decide which calls to use
-4. Create a new Postman collection
-5. Create your first call: List
-6. Create your second call: Get
-7. Add a parameter
-8. Describe your calls, parameters and returns
-9. Export your service
-10. Upload service
-11. Set your authentication parameters
-12. Done!
+1. **Find the developer documentation**: Google is very large and has lots of documentation, so the information we need for accessing Google Drive is scattered across a few pages. We will need the [API documentation](https://developers.google.com/drive/v2/reference/) as well as the [Authentication documentation](https://developers.google.com/drive/web/about-auth). 
+2. **Configure the service**: For many services you will need to get a Client ID / Client Key (or something similar) and setup the permissions of what that client will do. The Google [Authentication documentation](https://developers.google.com/drive/web/about-auth) walks us through accessing the Google [Developer Console](https://console.developers.google.com/project), creating a new project, and creating the credentials. Also note that [Google Drive has some scopes](https://developers.google.com/drive/web/scopes) that we may want to use later. Note that the `callback URL` must be set to `http://switchboard.center/service/<service_name>/callback`. In our case, our service name will be "Google Drive" and our callback will be  `http://switchboard.center/service/google_drive/callback` (the URL is all lowercase and spaces are converted to underscores).
+3. **Decide which calls to use**: Based on the Google Drive [API documentation](https://developers.google.com/drive/v2/reference/), we will create two calls -- `List` and `Get`. This will give us enough to download files from Google Drive.
+4. **Create a new Postman collection**: In Postman we create a [new collection](https://www.getpostman.com/docs/collections) called "Google Drive". This becomes the name of the service.
+5. **Set your Postman authentication**: Set your [authentication helpers](https://www.getpostman.com/docs/helpers#oauth2) in Postman. For Google Drive, the [Authentication documentation](https://developers.google.com/drive/web/about-auth) says that we will be using OAuth2, with the URLs `https://accounts.google.com/o/oauth2/auth` for the Authorization URL, `https://accounts.google.com/o/oauth2/token` for the Token URL, the Client ID / Secret created in the Google [Developer Console](https://console.developers.google.com/project), and an [optional scope](https://developers.google.com/drive/web/scopes) such as `https://www.googleapis.com/auth/drive`. Note that Postman uses the callback URL `https://www.getpostman.com/oauth2/callback`, so you will want to make sure that you have that URL enabled in the Google [Developer Console](https://console.developers.google.com/project).
+6. **Create your first call: List**: We add a new call to Postman for `List`. This one is pretty simple and if it works you should see some JSON in the [Postman responses](https://www.getpostman.com/docs/responses).
+7. **Create your second call: Get**: We add a new call to Postman for `Get`. 
+8. **Add a parameter**: The `Get` call also has a parameter for FileID. You can see the {{fileId}} parameter in the URL string, and you can test it out to make sure it works using [Postman environments](https://www.getpostman.com/docs/environments), as described above.
+9. **Describe your calls, parameters and returns**: Using the description fields in Postman, create your PostDoc documentation: ![An example of a PostDoc description](/images/IMG_0900.PNG)
+10. **Export your service**: Export the Google Drive service. Remember where you download the file to so that you can upload it in the next step.
+11. **Upload service**: Using the [Switchboard upload page](/upload.html) upload the file that you exported from Postman by dragging and dropping it or selecting `Choose File`.
+12. **Set your authentication parameters**: Using the same authentication settings as step 5, add the appropriate URLs, client ID / key, and scope. You will also need to add the Developer Sign-up URL, which in this case is the Google [Developer Console](https://console.developers.google.com/project): `https://console.developers.google.com/project`.
+13. **Done!**: Click `Submit` and you are done!
 
+<!---
 ## PostDoc
-
 ### Paramters
-
 ### Returns
-
 ### Types
-
 ### PEG Grammar Description
+-->
 
 ## Coming Soon...
+Here are a couple things that are in the works right now that will be added to Switchboard soon.
 
 ### Defining and sharing types
+In order to be able to share information between services, it is important to be able to define and share types. Does your service have `FileURLs` that other services might be able to use? Great, if you `@return` a `FileURL` then other services that have a parameter of type `FileURL` know that they will be able to use your service. But what if you want to define `ImageURL` as a specific kind of `FileURL` so that you can grab only the images from one service and share them with another? Or what about a `JpegImageURL` or a `PngImageURL`? That's where we start to get into the territory of defining your own types and sharing them so that other services can use them.
 
 ### Templates
+A template is a group of services that can all do the same thing. For example, Google Drive, Dropbox, and iCloud could all be part of a Cloud Storage template; or, Flickr, Photobucket and Instagram could all be part of a Photo Sharing template; or Facebook, Twitter, Renren, and Sina Weibo could be part of a Social Networking template. 
+
+The key behind a template is that all the services that are part of a template implement the same calls with the same parameters and the same returns (although the names don't need to be the same). This means that the Cloud Storage template can have `List` and `Get` for all the services that are part of that template. From an application perspective, this means that you don't have to integrate with every service, you just have to integrate with the template. Give the user the option to choose which of the service(s) in the template they want to use rather than locking them in to the big, traditional services.
+
+Just like services, templates will be user defined: anyone can decide how to group services and use them in the same way.
+
+### Others?
+Do you have other ideas for what to add to Switchboard? Hit us up on [Gitter](https://gitter.im/apowers313/switchboard) or create a [GitHub Issue](https://github.com/apowers313/switchboard/issues) to share your idea!
