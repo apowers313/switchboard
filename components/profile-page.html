@@ -7,7 +7,7 @@
     </style>
     <template>
         <!-- <profile-info on-change="profileInfoChanged"></profile-info> -->
-        <iron-ajax auto url="/profile" id="profileinfo" handle-as="json" on-response="profileInfoChanged"></iron-ajax>
+        <iron-ajax auto url="/profile" handle-as="json" on-response="profileInfoChanged"></iron-ajax>
         <h1>Profile</h1>
         <img src="{{avatarUrl}}">
         <!-- <img src="/images/switchboard_logo1.png"> -->
