@@ -1,0 +1,91 @@
+<link rel="import" href="/bower_components/polymer/polymer.html">
+<link rel="import" href="/bower_components/paper-item/paper-icon-item.html">
+<link rel="import" href="/bower_components/iron-ajax/iron-ajax.html">
+<dom-module id="sign-in">
+    <style>
+    a:link {
+        text-decoration: none;
+        color: black;
+    }
+    
+    a:visited {
+        text-decoration: none;
+        color: black;
+    }
+    
+    a:hover {
+        text-decoration: none;
+        color: black;
+    }
+    
+    a:active {
+        text-decoration: none;
+        color: black;
+    }
+    
+    .signin {
+        color: #DDDDDD;
+        width: 18px;
+        height: 18px;
+    }
+    </style>
+    <template>
+        <iron-ajax auto url="/profile/session" handle-as="json" on-response="sessionInfoChanged"></iron-ajax>
+        <template is="dom-if" if="[[authenticated]]">
+            <a href="/profile.html"><span>{{user}}</span></a>&nbsp;&nbsp;
+            <a href="/logout">
+                <iron-icon icon="cancel" class="signin"></iron-icon>
+            </a>
+        </template>
+        <template is="dom-if" if="[[!authenticated]]">
+            <a href="/login.html">sign in</a> or <a href="/register.html">register</a>
+        </template>
+    </template>
+    <script>
+    Polymer({
+        is: 'sign-in',
+
+        properties: {
+            authenticated: {
+                type: Boolean,
+                value: false
+            }
+        },
+
+        ready: function() {
+            console.log("BOOM!");
+        },
+
+        // Sample Session JSON
+        // ===================
+        //
+        // {
+        //   "success": true,
+        //   "result": "success",
+        //   "err": null,
+        //   "msg": "Session found",
+        //   "session": {
+        //     "cookie": {
+        //       "originalMaxAge": 3599999,
+        //       "expires": "2015-08-06T20:25:19.994Z",
+        //       "httpOnly": true,
+        //       "path": "/"
+        //     },
+        //     "passport": {
+        //       "user": "55bc6bc9a9d336078b5edf41"
+        //     },
+        //     "authenticated": true,
+        //     "user": "apowers"
+        //   },
+        //   "authenticated": true
+        // }
+        sessionInfoChanged: function(e) {
+            var sessionInfo = e.target.lastResponse;
+            console.log("Session info changed");
+            console.log("Session info:", sessionInfo);
+            this.authenticated = sessionInfo.session.authenticated;
+            this.user = sessionInfo.session.user;
+        }
+    });
+    </script>
+</dom-module>

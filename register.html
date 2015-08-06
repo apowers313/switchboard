@@ -64,11 +64,11 @@
     code {
         color: var(--google-grey-700);
     }
-
     </style>
 </head>
 
 <body unresolved class="fullbleed">
+    <iron-ajax auto url="/profile" handle-as="json" on-response="profileInfoChanged"></iron-ajax>
     <sb-header>
         <form-box name="Register">
             <validated-form url="/auth/local/register" after="/profile.html">
