@@ -1,0 +1,78 @@
+<link rel="import" href="/bower_components/polymer/polymer.html">
+<link rel="import" href="/components/profile-info.html">
+<link rel="import" href="/bower_components/iron-ajax/iron-ajax.html">
+<dom-module id="profile-page">
+    <style>
+
+    </style>
+    <template>
+        <!-- <profile-info on-change="profileInfoChanged"></profile-info> -->
+        <iron-ajax auto url="/profile" id="profileinfo" handle-as="json" on-response="profileInfoChanged"></iron-ajax>
+        <h1>Profile</h1>
+        <img src="{{avatarUrl}}">
+        <!-- <img src="/images/switchboard_logo1.png"> -->
+        Authenticated: <span>{{authenticated}}</span>
+        <br /> Username: <span>{{username}}</span>
+        <br /> Created: <span>{{createdAt}}</span>
+        <br /> Email: <span>{{email}}</span>
+        <br /> API Key: <span>{{apikey}}</span>
+        <br /> ID: <span>{{id}}</span>
+        <br />
+        <h1>Your Authentications (<span>{{authList.length}}</span>)</h1>
+        <template is="dom-repeat" items="{{authList}}">
+            <list-item name="{{item.name}}" desc="{{item.description}}"></list-item>
+        </template>
+        <h1>Your Services (<span>{{serviceList.length}}</span>)</h1>
+        <template is="dom-repeat" items="{{serviceList}}">
+            <list-item name="{{item.name}}" desc="{{item.description}}"></list-item>
+        </template>
+    </template>
+    <script>
+    Polymer({
+        is: 'profile-page',
+
+        properties: {
+            profileInfo: {
+                type: Object,
+                value: {},
+                // observer: "profileInfoChanged"
+            }
+        },
+
+        // TODO: listen to profile-info for data?
+        ready: function() {
+            console.log("Profile page ready!");
+            this.profileInfo = document.getElementsByTagName("profile-info");
+        },
+
+        // Sample Profile JSON
+        // ===================
+        // 
+		// {
+		//   "succes": true,
+		//   "result": "success",
+		//   "err": null,
+		//   "msg": "Found your profile",
+		//   "user": {
+		//     "username": "apowers",
+		//     "email": "apowers@ato.ms",
+		//     "createdAt": "2015-08-01T06:48:41.200Z",
+		//     "updatedAt": "2015-08-01T06:48:41.200Z",
+		//     "test": 1,
+		//     "apikey": "abc123",
+		//     "id": "55bc6bc9a9d336078b5edf41"
+		//   },
+		//   "authenticated": true
+		// }
+        profileInfoChanged: function(e) {
+            console.log("profile info changed");
+            // console.log("Foo:", foo);
+            var profileInfo = e.target.lastResponse;
+            console.log("Profile info:", e.target.lastResponse);
+            this.username = profileInfo.user.username;
+            this.authenticated = profileInfo.authenticated;
+            this.email = profileInfo.user.email;
+        }
+    });
+    </script>
+</dom-module>
