@@ -31,6 +31,7 @@
         },
 
         ready: function() {
+            // TODO: this can probably be simplified using the paramaters to iron-ajax
             this.$.ajaxsubmit.url = this.url;
             this.$.ajaxsubmit.method = this.method;
             this.$.ajaxsubmit.contentType = this.contentType;
@@ -51,7 +52,7 @@
 
         getResponse: function(e) {
             console.log ("last response:", e.target.lastResponse);
-            console.log ("Callback is:", this.cb)
+            console.log ("Callback is:", this.cb);
             if (this.cb) {
                 console.log ("Doing response callback");
                 this.cb (e.target.lastResponse);
