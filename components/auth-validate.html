@@ -19,7 +19,7 @@ Polymer({
     validateUrl: function(values) {
         var value = Array.isArray(values) ? values.join('') : values;
         if (value.match(/http[s]*:\/\/.+/) !== null) {
-            console.log ("Matched URL")
+            console.log ("Matched URL");
             return true;
         }
 

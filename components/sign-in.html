@@ -83,8 +83,13 @@
             var sessionInfo = e.target.lastResponse;
             console.log("Session info changed");
             console.log("Session info:", sessionInfo);
-            this.authenticated = sessionInfo.session.authenticated;
-            this.user = sessionInfo.session.user;
+            if (sessionInfo && sessionInfo.session) {
+                this.authenticated = sessionInfo.session.authenticated;
+                this.user = sessionInfo.session.user;
+            } else {
+                this.authenticated = false;
+                this.user = "NONE";
+            }
         }
     });
     </script>

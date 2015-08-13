@@ -1,0 +1,35 @@
+<link rel="import" href="/bower_components/polymer/polymer.html">
+<link rel="import" href="/bower_components/iron-ajax/iron-ajax.html">
+<dom-module id="profile-info">
+	<style>
+	</style>
+	<template>
+		<iron-ajax auto url="/profile" id="profileinfo" handle-as="json" on-response="getResponse"></iron-ajax>
+		<!-- <iron-ajax auto url="/profile" id="profileinfo" handle-as="json" last-response="{{value}}" on-response="getResponse"></iron-ajax> -->
+	</template>
+	<script>
+		Polymer({
+			is: 'profile-info',
+
+			properties: {
+				profileInfo: {
+					type: String,
+					value: ""
+				},
+				authenticated: {
+					type: Boolean,
+					value: false
+				},
+				username: {
+					type: String,
+					value: ""
+				}
+			},
+
+			getResponse: function(e) {
+				console.log ("Profile last response:", e.target.lastResponse);
+				this.profileInfo = e.target.lastResponse;
+			}
+		});
+	</script>
+</dom-module>
