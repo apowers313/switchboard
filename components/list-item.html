@@ -7,13 +7,7 @@
 <link rel="import" href="/bower_components/iron-autogrow-textarea/iron-autogrow-textarea.html">
 <link rel="import" href="/components/sb-theme.html">
 <dom-module id="list-item">
-    <style>
-    .textBox {
-        min-height: 100px;
-        background-color: var(--sb-theme-color1);
-        word-wrap: break-word;
-        white-space: normal;
-    }
+    <style is="custom-style">
     </style>
     <template>
         <paper-material elevation=3 class="list">
@@ -21,17 +15,17 @@
                 <div class="avatar orange" item-icon></div>
                 <paper-item-body two-line>
                     <div>{{name}}</div>
-                    <div secondary>This is a test.</div>
+                    <div secondary>{{subtitle}}</div>
                     <iron-collapse id="collapse">
-                    <!-- max-rows="4" -->
-                        <!-- <iron-autogrow-textarea class=".textBox" bind-value="{{desc}}" max-rows="10">
-                          <textarea></textarea>
-                        </iron-autogrow-textarea> -->
-                        <div class="textBox">{{desc}}</div>
+                        <content></content>
                     </iron-collapse>
                 </paper-item-body>
                 <iron-icon icon="info" on-click="doCollapse"></iron-icon>
-                <a href="/service-details.html"><iron-icon icon="arrow-forward"></iron-icon></a>
+                <template is="dom-if" if="{{url}}">
+                    <a href$="{{url}}">
+                        <iron-icon icon="arrow-forward"></iron-icon>
+                    </a>
+                </template>
             </paper-icon-item>
         </paper-material>
     </template>
@@ -43,13 +37,25 @@
                 type: String,
                 value: "NO NAME"
             },
+            subtitle: {
+                type: String,
+                value: "This is a test"
+            },
             desc: {
                 type: String,
                 value: "NO DESC"
+            },
+            logo: {
+                type: String,
+                value: "avatar orange"
+            },
+            url: {
+                type: String,
+                value: null
             }
         },
         doCollapse: function() {
-            // console.log("doing collapse");
+            console.log("doing collapse");
             // document.querySelector("#collapse").toggle()
             this.$.collapse.toggle();
         }
