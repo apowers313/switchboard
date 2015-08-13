@@ -1,0 +1,93 @@
+<link rel="import" href="/bower_components/polymer/polymer.html">
+<link rel="import" href="/bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="/bower_components/paper-material/paper-material.html">
+<link rel="import" href="/components/list-item.html">
+<dom-module id="service-details">
+    <style>
+    .textBox {
+        min-height: 100px;
+        background-color: var(--sb-theme-color1);
+        word-wrap: break-word;
+        white-space: normal;
+    }
+    </style>
+    <template>
+        <iron-ajax auto verbose url="{{serviceUrl}}" handle-as="json" last-response="{{serviceDetails}}"></iron-ajax>
+        <paper-material elevation=3 class="list">
+            <h1>{{serviceDetails.name}}</h1> description: <span>{{serviceDetails.description}}</span>
+            <br> urlName: <span>{{serviceDetails.urlName}}</span>
+            <br> id: <span>{{serviceDetails.id}}</span>
+            <br> createdAt: <span>{{serviceDetails.createdAt}}</span>
+            <br> owner: <span>{{serviceDetails.owner}}</span>
+            <br> authType: <span>{{serviceDetails.auth.authType}}</span>
+            <br> authUrl: <span>{{serviceDetails.urlName}}</span>
+            <br> scope: <span>{{serviceDetails.auth.scope}}</span>
+            <br> dev URL: <span>{{serviceDetails.auth.devSignUpUrl}}</span>
+            <br>
+        </paper-material>
+        <!-- Create a list of all the calls that are part of this service -->
+        <template is="dom-repeat" items="{{serviceDetails.calls}}" as="call">
+            <list-item name="{{call.name}}" subtitle="{{getCallUrl(call.urlName)}}">
+                <div class="textBox">{{call.description}}</div>
+                <br>
+                <br>
+                <!-- Create a list of all the paramaters that are part of this call -->
+                <h2>Params</h2>
+                <template is="dom-repeat" items="{{_toArray(call.params)}}" as="param">
+                    <div class="textBox">
+                    	<span>{{param.name}}</span>
+                    	Desc: <span>{{param.value.desc}}</span><br>
+                    	Type: <span>{{param.value.type}}</span><br>
+                    	Array: <span>{{param.value.isArray}}</span><br>
+                    	Optional: <span>{{param.value.optional}}</span><br>
+                    </div>
+                </template>
+                <h2>Returns</h2>
+                <template is="dom-repeat" items="{{_toArray(call.returns)}}" as="ret">
+                    <div class="textBox">
+                        <span>{{ret.name}}</span>
+                        <br> Desc: <span>{{ret.value.desc}}</span>
+                        <br> Path: <span>{{ret.value.path}}</span>
+                        <br> Type: <span>{{ret.value.type}}</span>
+                        <br> Array: <span>{{ret.value.isArray}}</span>
+                        <br> Optional: <span>{{ret.value.optional}}</span>
+                        <br>
+                        <br>
+                    </div>
+                </template>
+            </list-item>
+        </template>
+    </template>
+    <script>
+    Polymer({
+        is: 'service-details',
+        properties: {
+            serviceUrl: {
+                type: String,
+                value: null,
+                notify: true
+            },
+            serviceDetails: {
+                type: Object
+            }
+        },
+        ready: function() {
+            var serviceSlug = window.location.href.split("!")[1].substring(1);
+            this.serviceUrl = "/service/" + serviceSlug;
+            console.log("Set URL to:", this.serviceUrl);
+        },
+        getCallUrl: function(callUrlName) {
+            console.log("Getting URL:", callUrlName);
+            return this.serviceUrl + "/" + callUrlName;
+        },
+        _toArray: function(obj) {
+            return Object.keys(obj).map(function(key) {
+                return {
+                    name: key,
+                    value: obj[key]
+                };
+            });
+        }
+    });
+    </script>
+</dom-module>
