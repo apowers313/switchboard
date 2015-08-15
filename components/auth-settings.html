@@ -24,6 +24,7 @@ var authMethods = [
             id: "clientsecret"
         }, {
             name: "Scope",
+            verificationMethod: "noValidator",
             id: "scope"
         }, {
             name: "Developer Sign-up URL",
@@ -103,13 +104,13 @@ var authMethods = [
         ready: function() {
             this.authMethods = authMethods;
             // Convert verificationMethod string to the corresponding function... it's ugly, but it works great!
-            for (var i = 0; i < authMethods.length; i++) {
-                for (var k = 0; k < authMethods[i].arguments.length; k++) {
-                    if (this.authMethods[i].arguments[k].verificationMethod !== undefined) {
-                        this.authMethods[i].arguments[k].verificationMethod = this[this.authMethods[i].arguments[k].verificationMethod];
-                    }
-                }
-            }
+            // for (var i = 0; i < authMethods.length; i++) {
+            //     for (var k = 0; k < authMethods[i].arguments.length; k++) {
+            //         if (this.authMethods[i].arguments[k].verificationMethod !== undefined) {
+            //             this.authMethods[i].arguments[k].verificationMethod = this[this.authMethods[i].arguments[k].verificationMethod];
+            //         }
+            //     }
+            // }
             this.authChange();
         },
 
@@ -136,12 +137,14 @@ var authMethods = [
             // Add new <paper-input> nodes
             for (var i = 0; i < args.length; i++) {
                 console.log("Adding input [" + i + "]:", args[i].name);
+                console.log("Auth is:", args[i]);
             	var toAdd = document.createElement("validated-input");
             	console.log ("Adding name:", args[i].name);
             	toAdd.name = args[i].name;
             	toAdd.id = args[i].id;
+                // args[i].verificationMethod = "verifyNonEmpty";
             	console.log ("Adding validation method:", args[i].verificationMethod);
-            	toAdd.validate = args[i].verificationMethod;
+            	toAdd.validator = args[i].verificationMethod;
 				Polymer.dom(insertPoint).appendChild(toAdd);
             }
             Polymer.dom.flush();
