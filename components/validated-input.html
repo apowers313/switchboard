@@ -50,7 +50,6 @@
             console.log("Ready Validate:", this.validate);
             // console.log("Invalid",this.invalid);
         },
-
         verifyUrl: function(e) {
             console.log("Verify URL", e);
             console.log("Event on", e.srcElement.id);
@@ -64,7 +63,7 @@
         },
         verifyNonEmpty: function(e) {
             var value = e.target.value;
-            if (value === null || value == "") return false;
+            if (value === null || value === "") return false;
             console.log("Verify Non Empty", e);
             return true;
         },
