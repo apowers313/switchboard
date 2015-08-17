@@ -1,5 +1,6 @@
 <link rel="import" href="/bower_components/polymer/polymer.html">
 <link rel="import" href="/bower_components/paper-input/paper-input.html">
+<script type="text/javascript" src="/bower_components/validator-js/validator.min.js"></script>
 <link rel="import" href="/components/auth-validate.html">
 <dom-module id="validated-input">
     <style>
@@ -53,9 +54,10 @@
         verifyUrl: function(e) {
             console.log("Verify URL", e);
             console.log("Event on", e.srcElement.id);
-                // var prop = e.srcElement.id + "Valid";
-                // this.properties[prop] = false;
-            return false;
+
+            return validator.isURL(e.target.value, {
+                protocols: ['http', 'https']
+            });
         },
         noValidator: function() {
             console.log("noValidator");
@@ -73,13 +75,7 @@
             return this.verifyNonEmpty(e);
         },
         validateEmail: function(e) {
-            var value = e.target.value;
-            // var value = Array.isArray(values) ? values.join('') : values;
-            if (value.match(/.+@.+\..+/) !== null) {
-                return true;
-            }
-
-            return false;
+            return validator.isEmail(e.target.value);
         },
         validatePassword: function(e) {
             var value = e.target.value;
@@ -97,7 +93,7 @@
             if (this.validator !== undefined) {
                 console.log("Doing validation");
                 this.valid = this[this.validator](e);
-                console.log ("valid?", this.valid);
+                console.log("valid?", this.valid);
             } else {
                 console.log("No validation");
             }
