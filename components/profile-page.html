@@ -7,9 +7,9 @@
     </style>
     <template>
         <!-- <profile-info on-change="profileInfoChanged"></profile-info> -->
-        <iron-ajax auto url="/profile" handle-as="json" last-response="{{profileInfo}}"></iron-ajax>
-        <iron-ajax auto url="/profile/service" handle-as="json" last-response="{{serviceList}}"></iron-ajax>
-        <iron-ajax auto url="/profile/auth" handle-as="json" last-response="{{authList}}"></iron-ajax>
+        <iron-ajax auto url="/api/profile" handle-as="json" last-response="{{profileInfo}}"></iron-ajax>
+        <iron-ajax auto url="/api/profile/service" handle-as="json" last-response="{{serviceList}}"></iron-ajax>
+        <iron-ajax auto url="/api/profile/auth" handle-as="json" last-response="{{authList}}"></iron-ajax>
         <h1>Profile</h1>
         <img src="{{avatarUrl}}">
         <!-- <img src="/images/switchboard_logo1.png"> -->

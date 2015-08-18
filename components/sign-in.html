@@ -30,7 +30,7 @@
     }
     </style>
     <template>
-        <iron-ajax auto url="/profile/session" handle-as="json" on-response="sessionInfoChanged"></iron-ajax>
+        <iron-ajax auto url="/api/profile/session" handle-as="json" on-response="sessionInfoChanged"></iron-ajax>
         <template is="dom-if" if="[[authenticated]]">
             <a href="/profile.html"><span>{{user}}</span></a>&nbsp;&nbsp;
             <a href="/logout">
