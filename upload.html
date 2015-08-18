@@ -46,7 +46,7 @@
     <requires-auth redirect="/login.html" source="/upload.html"></requires-auth>
     <sb-header>
         <form-box name="Create Service">
-            <validated-form url="/service">
+            <validated-form url="/api/service">
                 <auth-settings></auth-settings>
                 <h2>Select Postman File</h2>
                 <json-file-upload></json-file-upload>
@@ -56,7 +56,7 @@
 </body>
 
 </html>
-<!-- <form id="uploadForm" enctype="multipart/form-data" action="/service" method="post">
+<!-- <form id="uploadForm" enctype="multipart/form-data" action="/api/service" method="post">
       This isn't pretty, but the idea is to upload your Postman file full of your calls and enter the information necessary to authorize with the service. Assuming you can do both of these things, you can define a new service for everyone to use!<br>
       <hr />
       <h2>Authorization Stuff</h2>

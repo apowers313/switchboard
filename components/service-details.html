@@ -73,7 +73,7 @@
         },
         ready: function() {
             var serviceSlug = window.location.href.split("!")[1].substring(1);
-            this.serviceUrl = "/service/" + serviceSlug;
+            this.serviceUrl = "/api/service/" + serviceSlug;
             console.log("Set URL to:", this.serviceUrl);
         },
         getCallUrl: function(callUrlName) {
