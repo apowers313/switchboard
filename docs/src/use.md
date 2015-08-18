@@ -14,15 +14,15 @@ Some services will require "three-legged" authentication. That's where you have 
 	"result": "token",
 	"err": "null",
 	"msg": "Authentication successful",
-	"redirect": "http://switchboard.center/callback/redirect?redirect=https%3A%2F%2Faccounts.google.com%2Fo%2Foauth2%2Fauth%3Fredirect_uri%3Dhttp&waitId=d613d8c4b807146f696986785624c6ba",
-	"browserRedirect": "http://switchboard.center/callback/redirect?redirect=https%3A%2F%2Faccounts.google.com%2Fo%2Foauth2%2Fauth%3Fredirect_uri%3Dhttp&waitId=d613d8c4b807146f696986785624c6ba",
-	"waitUrl": "http://switchboard.center/callback/wait/d613d8c4b807146f696986785624c6ba" 
+	"redirect": "http://switchboard.center/api/service/google_drive/callback/redirect?redirect=https%3A%2F%2Faccounts.google.com%2Fo%2Foauth2%2Fauth%3Fredirect_uri%3Dhttp&waitId=d613d8c4b807146f696986785624c6ba",
+	"browserRedirect": "http://switchboard.center/api/service/google_drive/callback/redirect?redirect=https%3A%2F%2Faccounts.google.com%2Fo%2Foauth2%2Fauth%3Fredirect_uri%3Dhttp&waitId=d613d8c4b807146f696986785624c6ba",
+	"waitUrl": "http://switchboard.center/api/service/google_drive/callback/wait/d613d8c4b807146f696986785624c6ba" 
 }
 ```
 
 The `redirect` and `browserRedirect` URLs will be the same -- they both indicate that a browser should be used to finialze the authentication. This requires that the process requesting authentication wait until authentication is done before making a call. There are two ways to wait for authentication to complete: synchronous and asynchronous.
 
-The synchronous method uses the `waitUrl` that is returned by the authentication call. Calling this URL will block until the authentication has finished or until the wait call times out. By default the wait call will timeout after 90 seconds, but this can be adjusted by adding `?timeout=seconds` to the end of the URL. For example, `http://switchboard.center/callback/wait/d613d8c4b807146f696986785624c6ba?timeout=30` would timeout after 30 seconds instead of 90.
+The synchronous method uses the `waitUrl` that is returned by the authentication call. Calling this URL will block until the authentication has finished or until the wait call times out. By default the wait call will timeout after 90 seconds, but this can be adjusted by adding `?timeout=seconds` to the end of the URL. For example, `http://switchboard.center/api/service/google_drive/callback/wait/d613d8c4b807146f696986785624c6ba?timeout=30` would timeout after 30 seconds instead of 90.
 
 The asynchronous method uses `resultRedirect` to callback to a URL once the browser is done. Traditionally, this requires that the client listen to a port and accept the input to know that the call has completed and it is up to the client to time out if something goes wrong. On mobile devices, it is possible that the `resultRedirect` could be a custom URL scheme that triggers an [Android intent](https://developer.chrome.com/multidevice/android/intents) ([see also](http://developer.android.com/reference/android/content/Intent.html)) or a [iOS URL Scheme](https://developer.apple.com/library/ios/documentation/iPhone/Conceptual/iPhoneOSProgrammingGuide/Inter-AppCommunication/Inter-AppCommunication.html) (for example to close a Web View). (Note: these haven't been tested yet, but in theory they should work...)
 
@@ -51,7 +51,7 @@ rest.get ("http://switchboard.center/service/google_drive/auth").on('complete', 
 At this point, it is up to the user to do what they normally do to authorize in the browser. Assuming that they do the right things, Google Drive will call back to Switchboard with a signal saying that authorization is complete. If we want to wait for that signal to know that authorization was successful, we can use the wait function:
 
 ```javascript
-rest.get ("http://switchboard.center/service/google_drive/auth/wait").on('complete', function (data) {
+rest.get ("http://switchboard.center/api/service/google_drive/callback/wait/d613d8c4b807146f696986785624c6ba").on('complete', function (data) {
 	// We don't get here until authorization is done...
 });
 ```
